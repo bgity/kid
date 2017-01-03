@@ -1,0 +1,536 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+	Progress Report
+</h3>
+<div class="page-bar">
+	<ul class="page-breadcrumb">
+		<li>
+			<i class="fa fa-home"></i>
+			<a href="#/dashboard.html">Home</a>
+			<i class="fa fa-angle-right"></i>
+		</li>
+		<li>
+			<a href="#/progress_report.html">Progress Report</a>
+		</li>
+	</ul>
+	
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+	<div class="col-md-7 col-sm-12">
+		<!-- BEGIN TABLE PORTLET-->
+		<div class="portlet box blue-madison">
+				
+			<div class="portlet-body flip-scroll">
+				<div class="row">
+					<div class="col-md-6">
+						<a class="btn blue btn-block" ng-click="topicst=true;reportst=false;">Topic Management</a>
+					</div>
+					<div class="col-md-6">
+						<a class="btn blue btn-block" ng-click="reportst=true;topicst=false;">Report Management</a>
+					</div>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+				
+				<div ng-if="topicst">
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<select class="form-control input-small input-inline" ng-model="filterItem.school" ng-options="school.name for school in filterOptions.schools"></select>
+						<select class="form-control input-small input-inline" ng-model="grade" ng-options="grade.name for grade in grades"><option value='' disabled selected style='display:none;'>Grade</option></select>
+						<select class="form-control input-small input-inline" ng-model="division" ng-options="division.name for division in divisions"><option value='' disabled selected style='display:none;'>Division</option></select>
+					</div>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+				<table class="table table-bordered table-striped table-condensed flip-content">
+					<thead class="flip-content">
+						<tr>
+							<th>
+								<input type="checkbox" class="regular-checkbox" ng-model="selectedAll" ng-change="checkAll()" />
+							</th>
+							<th>
+								Topic Name
+							</th>
+							<th>
+								Overall Comment
+							</th>
+							<th>
+								Date
+							</th>
+							<th>
+								&nbsp;
+							</th>
+							<th>
+								&nbsp;
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="topic in filtered = (topics | filter:customFilter)">
+							<td>
+								<input type="checkbox" id="{{ topic.id}}" class="regular-checkbox" ng-model="topic.checked" ng-click="checkedParent(topic.id)" />
+							</td>
+							<td>
+								{{topic.name}}
+							</td>
+							<td>
+								{{topic.comments}}
+							</td>
+							<td>
+								{{topic.date}}
+							</td>
+							<td>
+								<span class="badge" ng-class="{'badge-danger':topic.status == 3, 'badge-partial':topic.status == 2, 'badge-success':topic.status == 1}">&nbsp;&nbsp;</span>
+							</td>
+							<td>
+								<i class="fa fa-paperclip" ng-show="topic.attachment == 1"></i>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				
+				<div ng-if="reportst">
+				
+				<div class="row">
+					<div class="col-md-12">
+					<tabset class="tabs-left">
+						<tab heading="Term Reports" ng-click="activeTab('termreport');">
+							<div class="row">
+								<div class="col-md-9">
+									<select class="form-control input-xsmall input-inline" ng-model="filterItem.school" ng-options="school.name for school in filterOptions.schools"></select>
+									<select class="form-control input-small input-inline" ng-model="year" ng-options="year for year in years"><option value='' disabled selected style='display:none;'>Academic</option></select>
+									<select class="form-control input-xsmall input-inline" ng-model="grade" ng-options="grade.name for grade in grades"><option value='' disabled selected style='display:none;'>Grades</option></select>
+									<select class="form-control input-xsmall input-inline" ng-model="division" ng-options="division.name for division in divisions"><option value='' disabled selected style='display:none;'>Division</option></select>
+								</div>
+								<div class="col-md-9">
+									<div class="scroller routedet" style="height: 300px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+										<div class="clearfix">&nbsp;</div>
+										<div style="padding:5px;">
+											<div ng-repeat="student in [1,2,3,4,5,6,7,8]" ng-click="checkStu();">
+												<div class="col-md-8">
+													<p>Student name</p>
+												</div>
+												<div class="col-md-2">
+													<p>Date</p>
+												</div>
+												<div class="col-md-2">
+													<p>
+														<span class="badge badge-partial">&nbsp;&nbsp;</span>
+													</p>
+												</div>
+												<div class="clearfix"></div>
+												<hr style="border:1px solid #7ca7cc;"/>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</tab>
+						<tab heading="Report Generation" ng-click="activeTab('reportgen');">
+							<div class="row">
+								<div class="col-md-9">
+									<select class="form-control input-xsmall input-inline" ng-model="filterItem.school" ng-options="school.name for school in filterOptions.schools"></select>
+									<select class="form-control input-small input-inline" ng-model="year" ng-options="year for year in years"><option value='' disabled selected style='display:none;'>Academic</option></select>
+									<select class="form-control input-xsmall input-inline" ng-model="grade" ng-options="grade.name for grade in grades"><option value='' disabled selected style='display:none;'>Grades</option></select>
+									<select class="form-control input-xsmall input-inline" ng-model="division" ng-options="division.name for division in divisions"><option value='' disabled selected style='display:none;'>Division</option></select>
+								</div>
+								<div class="col-md-9 no-gutter_pad10">
+									<div class="scroller routedet" style="height: 400px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+										<div class="clearfix">&nbsp;</div>
+										<div class="calendar_se" style="padding:5px;">
+											<div class="row">
+												<div class="col-md-2 text-center">
+													Terms
+												</div>
+												<div class="col-md-4">
+													From Date
+												</div>
+												<div class="col-md-4">
+													To Date
+												</div>
+												<div class="col-md-2 text-center">
+													Generate
+												</div>
+											</div>
+											<div class="clearfix">&nbsp;</div>
+											<div class="no-gutter_pad10" ng-repeat="term in [1,2,3,4]" style="padding-bottom:5px;">
+												<div class="col-md-2 text-center">
+													Term {{term}}
+												</div>
+												<div class="col-md-4">
+													<input type="text" ng-datepicker ng-model="frm.from_date" name="from_date" required id="datepicker" />
+												</div>
+												<div class="col-md-4">
+													<input type="text" ng-datepicker ng-model="frm.to_date" name="to_date" required id="datepicker" />
+												</div>
+												<div class="col-md-2 text-center">
+													<a class="btn bt-primary btn-xs blue" ng-click="genReport();">Generate</a>
+												</div>
+												<div class="clearfix"></div>
+											</div>
+											<hr/>
+											<div class="row" ng-if="generater">
+												<div class="col-md-12">
+													Reports for 10 students have been generated <a class="btn bt-primary btn-sm green">Send to Parents</a>
+												</div>
+												<div class="clearfix">&nbsp;</div>
+												<div class="col-md-12">
+													<div class="no-gutter_pad10" ng-repeat="student in [1,2,3,4,5,6,7,8,9,10]">
+														<div class="col-md-3">
+															<p>Student name</p>
+														</div>
+														<div class="col-md-3">
+															<p>Student {{student}}</p>
+														</div>
+														<div class="col-md-2">
+															<p>Grade</p>
+														</div>
+														<div class="col-md-2">
+															<p>Division</p>
+														</div>
+														<div class="col-md-2">
+															<a ng-click="checkStu();"><i class="fa fa-eye"></i></a>
+															<i class="fa fa-download"></i>
+														</div>
+														<div class="clearfix"></div>
+														<hr/>
+													</div>
+												</div>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</tab>
+					</tabset>
+					</div>
+				</div>
+				
+				</div>
+			</div>
+		</div>
+		<!-- END TABLE PORTLET-->
+	</div>
+	
+	<!-- RIGHT SIDE AREA-->
+	<div class="col-md-5 col-sm-12 rightside">
+			<div ng-if="topicst">
+				<div class="clearfix" ng-if="checkedIndexs.length < 1">
+					<div class="portlet light bordered">
+						<div class="row text-center no-data">
+							<i class="fa fa-book icon-fa-5x"></i>
+							<div>No Topic Selected</div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix" ng-if="checkedIndexs.length > 1">
+					<div class="portlet light bordered text-center">
+						<h3>You have selected {{checkedIndexs.length}} records.</h3>
+						<button class="btn red btn-block">Delete Selected Records</button>
+					</div>
+				</div>
+				<div class="clearfix" ng-if="checkedIndexs.length ==1">
+					<div class="portlet light bordered">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="pull-right">
+									<a href="javascript:;"> <i class="fa fa-times icon-fa-2x"></i></a>
+								</div>
+							</div>
+							<div class="clearfix">&nbsp;</div>
+							<div class="col-md-12">
+								<div class="portlet-body">
+									<div class="col-md-9">
+										<div class="row">
+											<p>{{topics[checkedIndexs-1].name}}&nbsp;<i class="fa fa-paperclip"></i></p>
+										</div>
+										<div class="row">
+											<p>{{topics[checkedIndexs-1].comments}}</p>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<p><span class="badge" ng-class="{'badge-danger':topics[checkedIndexs-1].status == 3, 'badge-partial':topics[checkedIndexs-1].status == 2, 'badge-success':topics[checkedIndexs-1].status == 1}">&nbsp;&nbsp;</span></p>
+									</div>
+								</div>
+								<div class="clearfix">&nbsp;</div>
+								<hr/>
+							</div>
+							
+							<div class="clearfix">&nbsp;</div>
+							<div class="col-md-12">
+								<div>
+									<input type="search" class="form-control input-small input-inline input-circle" placeholder="Search" ng-model="search.name">
+								</div>
+								<div class="scroller routedet" style="height: 300px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+									<div class="clearfix">&nbsp;</div>
+									<div style="padding:5px;">
+										<div ng-repeat="student in filtered = (topics[checkedIndexs-1].students | filter:search)">
+											<div class="col-md-2 no-data">
+												<div class="profile-userpic">
+													<img src="assets/admin/layout2/img/avatar.png" class="img-responsive" alt="" style="width:100%;">
+												</div>
+											</div>
+											<div class="col-md-10">
+												<p>{{student.name}}</p>
+												<p>{{student.comments}}</p>
+											</div>
+											<div class="clearfix"></div>
+											<hr style="border:1px solid #7ca7cc;"/>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+							
+						</div>
+					</div>
+			</div>
+			
+			<div ng-if="reportst">
+				<div ng-if="termreport">
+					<div class="clearfix" ng-if="!checkedRep">
+						<div class="portlet light bordered">
+							<div class="row text-center no-data">
+								<i class="fa fa-user icon-fa-5x"></i>
+								<div>No Student Selected</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="clearfix" ng-if="checkedRep">
+					<div class="portlet light bordered">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="pull-right">
+									<a ng-click="closeRight()"> <i class="fa fa-times icon-fa-2x"></i></a>
+								</div>
+							</div>
+							<div class="clearfix">&nbsp;</div>
+							<div class="row">
+								<div class="portlet-body">
+									<div class="col-md-12">
+										<div class="well">
+											<div class="row">
+												<div class="col-md-6">Student Name</div>
+												<div class="col-md-6">Student ID</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">Parent Name</div>
+												<div class="col-md-6">Parent ID</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">Parent Name</div>
+												<div class="col-md-6">Parent ID</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<form class="form-horizontal" valid-submit="addstudentcomm()" name="frmstucomm" novalidate>
+														<div class="form-group" style="padding:5px;">
+															<textarea class="form-control" ng-model="frm.comment" placeholder="Enter Overall Comment"></textarea>
+														</div>
+														<button class="btn btn-sm green pull-right">Send</button>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="well">
+											<div class="col-md-12">
+												<div class="pull-right">
+													<select class="form-control input-inline input" ng-model="frm.subject" ng-options="subject.name for subject in subjects">
+														<option value='' disabled selected style='display:none;'>Subject</option>
+													</select>
+												</div>
+											</div>
+											<div class="scroller routedet" style="height: 150px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+												<div class="clearfix">&nbsp;</div>
+												<div style="padding:5px;">
+													<div ng-repeat="topic in topics" ng-click="checkStu();">
+														<div class="col-md-5">
+															<p>{{topic.name}}</p>
+														</div>
+														<div class="col-md-7">
+															<p>{{topic.comments}}</p>
+														</div>
+														<div class="clearfix"></div>
+														<hr style="border:1px solid #7ca7cc;"/>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-12">
+										<div class="well">
+											<div class="row">
+												<div class="col-md-5">
+													<p>Total Working Days</p>
+													<p>Total Present Days</p>
+													<p>Excused Absence</p>
+												</div>
+												<div class="col-md-4">
+													<p>&nbsp;</p>
+													<p>Total Absent Days</p>
+													<p>&nbsp;</p>
+												</div>
+												<div class="col-md-3">
+													<div round-progress
+														max="100"
+														current="97"
+														color="#45ccce"
+														bgcolor="#eaeaea"
+														radius="30"
+														stroke="8"
+														semi="false"
+														rounded="false"
+														clockwise="true"
+														responsive="true"
+														duration="800"
+														animation="easeOutCubic">97%</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+							
+						</div>
+					</div>
+				</div>
+			
+			
+				<div ng-if="reportgen">
+				<div class="clearfix" ng-if="!checkedRep">
+					<div class="portlet light bordered">
+						<div class="row text-center no-data">
+							<i class="fa fa-files-o icon-fa-5x"></i>
+							<div>No Report Selected for viewing</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="clearfix" ng-if="checkedRep">
+					<div class="portlet light bordered">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="pull-right">
+									<a ng-click="closeRight()"> <i class="fa fa-times icon-fa-2x"></i></a>
+								</div>
+							</div>
+							<div class="clearfix">&nbsp;</div>
+							<div class="row">
+								<div class="portlet-body">
+									<div class="col-md-12">
+										<div class="well">
+											<div class="row">
+												<div class="col-md-4">
+													<div class="profile-userpic">
+														<img alt="" class="img-responsive" src="assets/admin/layout2/img/avatar.png">
+													</div>
+												</div>
+												<div class="col-md-8">
+													<div class="row">
+														<div class="col-md-6" style="font-size:16px; font-weight:bold;">Student Name</div>
+														<div class="col-md-6">Student ID</div>
+													</div>
+													<div class="row">
+														<div class="col-md-12">Grade Division</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="well">
+											<div class="row">
+												<div class="col-md-6" style="font-size:15px; font-weight:bold;">Parent Name</div>
+												<div class="col-md-6">Parent ID</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6" style="font-size:15px; font-weight:bold;">Parent Name</div>
+												<div class="col-md-6">Parent ID</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="well">
+											<div class="col-md-12">
+												<div class="pull-right">
+													<select class="form-control input-inline input" ng-model="frm.subject" ng-options="subject.name for subject in subjects">
+														<option value='' disabled selected style='display:none;'>Subject</option>
+													</select>
+												</div>
+											</div>
+											<div class="scroller routedet" style="height: 150px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+												<div class="clearfix">&nbsp;</div>
+												<div style="padding:5px;">
+													<div ng-repeat="topic in topics">
+														<div class="col-md-5">
+															<p>{{topic.name}}</p>
+														</div>
+														<div class="col-md-7">
+															<p>{{topic.comments}}</p>
+														</div>
+														<div class="clearfix"></div>
+														<hr style="border:1px solid #7ca7cc;"/>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-12">
+										<div class="well">
+											<div class="row">
+												<div class="col-md-5">
+													<p>Total Working Days</p>
+													<p>Total Present Days</p>
+													<p>Excused Absence</p>
+												</div>
+												<div class="col-md-4">
+													<p>&nbsp;</p>
+													<p>Total Absent Days</p>
+													<p>&nbsp;</p>
+												</div>
+												<div class="col-md-3">
+													<div round-progress
+														max="100"
+														current="97"
+														color="#45ccce"
+														bgcolor="#eaeaea"
+														radius="30"
+														stroke="8"
+														semi="false"
+														rounded="false"
+														clockwise="true"
+														responsive="true"
+														duration="800"
+														animation="easeOutCubic">97%</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-12">
+										<div class="well">
+											<p>Overall Comment</p>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+							
+						</div>
+					</div>
+			</div>
+			</div>
+			
+		</div>
+	</div>
+<!-- END MAIN CONTENT -->

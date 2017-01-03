@@ -1,0 +1,253 @@
+<div class="portlet-body">
+	<div class="row">
+		<div class="col-md-2">
+			<div class="clearfix">&nbsp;</div>
+			<div class="portlet light bordered">
+				<div class="form-group">
+					<input type="text" placeholder="Search" class="form-control input_full" />
+				</div>
+				<hr/>
+				<div class="form-group">
+					<label>
+						<input type="checkbox" checked name="eventcal"/>General Event Calendar
+					</label>
+					<label>
+						<input type="radio" checked name="school"/>School Name
+					</label>
+				</div>
+				<hr/>
+				<div class="form-group">
+					<label ng-repeat="school in [1,2,3,4]">
+						<input type="radio" name="school"/>School Name
+					</label>
+				</div>
+			</div>
+			
+			<div class="portlet light bordered">
+				Additional Notes
+			</div>
+
+		</div>
+		<div class="col-md-8">
+			<div class="clearfix">&nbsp;</div>
+			<div class="portlet light bordered">
+			<div class="row">
+
+				<div class="col-md-6 text-center">
+				  <!--<div class="btn-group">
+
+					<button decrement="calendarView" date="calendarDay" mwl-date-modifier="" class="btn btn-primary ng-isolate-scope">
+					  Previous
+					</button>
+					<button set-to-today="" date="calendarDay" mwl-date-modifier="" class="btn btn-default ng-isolate-scope">
+					  Today
+					</button>
+					<button increment="calendarView" date="calendarDay" mwl-date-modifier="" class="btn btn-primary ng-isolate-scope">
+					  Next
+					</button>
+				  </div>-->
+				</div>
+
+				<br class="visible-xs visible-sm">
+
+				<div class="col-md-6 text-center">
+				  <div class="btn-group">
+					<label btn-radio="'year'" ng-model="calendarView" class="btn btn-primary btn-sm">Year</label>
+					<label btn-radio="'month'" ng-model="calendarView" class="btn btn-primary btn-sm">Month</label>
+					<label btn-radio="'week'" ng-model="calendarView" class="btn btn-primary btn-sm">Week</label>
+					<label btn-radio="'day'" ng-model="calendarView" class="btn btn-primary btn-sm">Day</label>
+				  </div>
+				</div>
+
+			  </div>
+			<div class="row">
+				<mwl-calendar
+					view="calendarView"
+					current-day="calendarDay"
+					events="events"
+					view-title="calendarTitle"
+					on-event-click="eventClicked(calendarEvent)"
+					on-event-times-changed="calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+					edit-event-html="'<i class=\'glyphicon glyphicon-pencil\'></i>'"
+					delete-event-html="'<i class=\'glyphicon glyphicon-remove\'></i>'"
+					on-edit-event-click="eventEdited(calendarEvent)"
+					on-delete-event-click="eventDeleted(calendarEvent)"
+					auto-open="true">
+				</mwl-calendar>
+			</div>
+			</div>
+		</div>
+		<div class="col-md-2">
+			<div class="clearfix">&nbsp;</div>
+			<div class="portlet light bordered">
+				
+				<div ng-repeat="event in events">
+					<p>{{event.title}}</p>
+					<p>{{event.startTime | date:'h:mma'}}</p>
+					<p>{{event.venue}}</p>
+					<hr/>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/ng-template" id="modalContent.html">
+	<div class="modal-header">
+	  <h3 class="modal-title">
+		{{ vm.action }} <div class="form-group pull-right">
+				<a ng-click="$close()"><i class="fa fa-times"></i></a>
+			</div>
+	  </h3>
+	</div>
+	<div class="modal-body calendar_se">
+	  <!--<p>Action: <pre>{{ vm.action }}</pre></p>
+	  <p>Event: <pre>{{ vm.event | json }}</pre></p>-->
+	  <div class="evediv" ng-if="vm.action =='Add Event' || vm.action =='Edit Event'">
+	  <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<input type="text" class="form-control input_full" placeholder="Event Name" ng-model="vm.event.title" name="name" required id="name" />
+			</div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-12">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label>From Date: 
+						<input type="text" id="datepicker" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="vm.event.startsAt" name="startsAt" id="startsAt" />
+					</label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label>To Date: 
+						<input type="text" id="datepicker" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="vm.event.endsAt" name="endsAt" id="endsAt" />
+					</label>
+				</div>
+			</div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-12">
+			<div class="col-md-6" style="padding-left:0px;">
+				<div class="form-group">
+					<input type="text" class="form-control input_full" placeholder="From Time" ng-model="vm.event.startTime | date:'h:mma'" name="startTime" required id="startTime" />
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group" style="padding-right:0px;">
+					<input type="text" class="form-control input_full" placeholder="To Time" ng-model="vm.event.endTime | date:'h:mma'" name="endTime" required id="endTime" />
+				</div>
+			</div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<input type="text" class="form-control input_full" placeholder="Venue" ng-model="vm.event.venue" name="venue" required id="venue" />
+			</div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<input type="text" class="form-control input_full" placeholder="Organized By" ng-model="vm.event.org_by" name="org_by" required id="org_by" />
+			</div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-12">
+			<div class="col-md-12" style="border:1px solid #DDD;">
+				Tags
+				<div>
+					<a class="btn btn-sm blue">All<i class="fa fa-times icon-fa-2x"></i></a>
+				</div>
+				<div>&nbsp;</div>
+				<div class="form-group">
+					<input type="text" class="form-control input-lg" ng-model="addSubject" placeholder="Type to add more tags"/>
+				</div>
+			</div>
+		</div>
+	  </div>
+	 </div>
+	 
+	 <div class="evediv" ng-if="vm.action =='View Event'">
+	  <div class="row">
+		<div class="col-md-12">
+			<div class="form-group pull-right">
+				<a ng-click="$close()"><i class="fa fa-times"></i></a>
+			</div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label>{{vm.event.title}}</label>
+			</div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label>From Date: {{vm.event.startsAt  | date : format : shortDate}}</label>
+				<label>To Date: {{vm.event.endsAt  | date : format : shortDate}}</label>
+			</div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-12">
+				<div class="form-group">
+					<label>{{vm.event.startsAt  | date:'h:mma'}} to {{vm.event.endsAt  | date:'h:mma'}}</label>
+				</div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label>{{vm.event.venue}}</label>
+			</div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label>{{vm.event.org_by}}</label>
+			</div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-12">
+			<div class="col-md-12" style="border:1px solid #DDD;">
+				Tags
+				<div>
+					<a class="btn btn-sm blue">All<i class="fa fa-times icon-fa-2x"></i></a>
+				</div>
+				<div>&nbsp;</div>
+			</div>
+		</div>
+	  </div>
+	 </div>
+	 
+	 <div class="evediv" ng-if="vm.action =='Delete Event'">
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="text-center">Are you sure you want to delete event <b>"{{vm.event.title}}"</b></h4>
+			</div>
+		</div>
+	 </div>
+	</div>
+	<div class="modal-footer">
+	  <div class="clearfix">&nbsp;</div>
+	  <div class="text-center" ng-if="vm.action =='Add Event' || vm.action == 'Edit Event'">
+		<button class="btn btn-primary" ng-click="$close()">Save Changes</button>
+	  </div>
+	  <div class="text-center" ng-if="vm.action =='View Event'">
+		<button class="btn btn-primary bt-sm red" ng-click="$close()">Delete Event</button>
+		<button class="btn btn-primary bt-sm" ng-click="$close(); ">Edit Event</button>
+	  </div>
+	   <div class="text-center" ng-if="vm.action =='Delete Event'">
+		<button class="btn btn-primary bt-sm red" ng-click="$close()">Delete Event</button>
+		</div>
+	</div>
+</script>

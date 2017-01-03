@@ -1,0 +1,209 @@
+<div class="col-md-7 col-sm-12">
+	<!-- BEGIN TABLE PORTLET-->
+	<div class="portlet light bordered">
+		<div class="clearfix">&nbsp;</div>
+		<div class="portlet-body flip-scroll" >
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-md-3">
+						<select class="form-control input-small input-inline" ng-model="filterItem.school" ng-options="school.name for school in filterOptions.schools"></select>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix">&nbsp;</div>
+			<table class="table table-bordered table-striped table-condensed flip-content">
+				<thead class="flip-content">
+					<tr>
+						<th>
+							<input type="checkbox" class="regular-checkbox" ng-model="$parent.selectedAll" ng-change="checkAll()" />
+						</th>
+						<th>
+							Route No.
+						</th>
+						<th>
+							Start Point
+						</th>
+						<th>
+							End Point
+						</th>
+						<th>
+							Distance
+						</th>
+						<th>
+							Stops
+						</th>
+						<th>
+							Trip Time
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="route in filtered = (routes | filter:customFilter)">
+						<td>
+							<input type="checkbox" id="{{ route.id}}" class="regular-checkbox" ng-model="route.checked" ng-click="checkedRoute(route.id)" /><label for="{{ route.id}}">
+						</td>
+						<td>
+							{{route.route_no}}
+						</td>
+						<td>
+							{{route.start_point}}
+						</td>
+						<td>
+							{{route.end_point}}
+						</td>
+						<td>
+							{{route.distance}}
+						</td>
+						<td>
+							{{route.stops}}
+						</td>
+						<td>
+							{{route.trip_time}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="clearfix">&nbsp;</div>
+	</div>
+	
+	<!-- END TABLE PORTLET-->
+</div>
+
+
+
+<!-- RIGHT SIDE AREA-->
+<div class="col-md-5 col-sm-12 rightside">
+	
+		<div class="clearfix" ng-if="checkedIndexs.length < 1">
+			<div class="portlet light bordered">
+				<div class="row text-center no-data">
+					<i class="fa fa-bus icon-fa-5x"></i>
+					<div>No Route Selected</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix" ng-if="checkedIndexs.length > 1">
+			<div class="portlet light bordered text-center">
+				<h3>You have selected {{checkedIndexs.length}} routes.</h3>
+				<div class="row">
+				<div class="col-md-6">
+					<a class="btn grey btn-block">Move to another school</a>
+				</div>
+				<div class="col-md-6">
+					<a class="btn red btn-block">Delete Routes</a>
+				</div>
+				</div>
+			</div>
+		</div>
+	<div class="portlet light bordered" ng-if="checkedIndexs.length == 1">
+		<map center="19.172075, 72.870907" zoom="16" zoom-control="true" zoom-control-options="{style:'SMALL'}" pan-control="true" pan-control-options="{position:'TOP_RIGHT'}"></map>
+		<div class="clearfix">&nbsp;</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="col-md-4">{{routes[checkedIndexs-1].route_no}}</div>
+				<div class="col-md-4">Start: {{routes[checkedIndexs-1].start_point}}</div>
+				<div class="col-md-4">End: {{routes[checkedIndexs-1].end_point}}</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-4">Total Students: {{routes[checkedIndexs-1].total_students}}</div>
+				<div class="col-md-4">Distance: {{routes[checkedIndexs-1].distance}}</div>
+				<div class="col-md-4">Duration: {{routes[checkedIndexs-1].trip_time}}</div>
+			</div>
+		</div>
+		<hr/>
+		<div class="clearfix">&nbsp;</div>
+		<div class="row pull-right">
+			<a  class="btn" style="box-shadow:none;"><i class="fa fa-bell icon-fa-2x"></i></a>
+			<a class="btn btn-xs grey-cascade" href="javascript:;">Edit <i class="fa fa-edit"></i></a>
+			<a class="btn btn-xs red" ng-click="deleteRouteView(routes[checkedIndexs-1].id, routes[checkedIndexs-1].route_no, 'Route')">Delete <i class="fa fa-times"></i></a>
+		</div>
+		<div class="clearfix">&nbsp;</div>
+		<div class="row">
+			<tabset justified="true" type="pills">
+				<tab heading="Route">
+					<div class="scroller routedet" style="height: 300px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+						<div class="clearfix">&nbsp;</div>
+						<div style="padding:5px;">
+							<div ng-repeat="stops in [1,2,3,4,5,6,7,8]" class="postdiv">
+								<div class="col-md-1 no-data">
+									<p><i class="fa fa-map-marker icon-fa-2x"></i></p>
+								</div>
+								<div class="col-md-9">
+									<p>Stop{{checkedIndexs+1}}</p>
+									<p>ETA</p>
+									<p>ETD</p>
+								</div>
+								<div class="col-md-2">
+									<p class="text-center">2</p>
+									<p>Students</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+				</tab>
+				<tab heading="Information">
+					<div class="clearfix">
+					<div class="clearfix">&nbsp;</div>
+					<div class="col-md-12">
+						<div class="well">
+							Vehicle: {{routes[checkedIndexs-1].vehicle_no}}
+						</div>
+						<div class="well">
+							<div class="row">
+								<div class="col-md-2">
+									<div class="profile-userpic">
+										<img src="assets/admin/layout2/img/avatar.png" class="img-responsive" alt="" style="width:100%;">
+									</div>
+								</div>
+								<div class="col-md-10">
+									<p>Conductor: {{routes[checkedIndexs-1].coordinator}}</p>
+									<p>Conductor details</p>
+								</div>
+							</div>
+						</div>
+						<div class="well">
+							<div class="row">
+								<div class="col-md-2">
+									<div class="profile-userpic">
+										<img src="assets/admin/layout2/img/avatar.png" class="img-responsive" alt="" style="width:100%;">
+									</div>
+								</div>
+								<div class="col-md-10">
+									<p>Driver: {{routes[checkedIndexs-1].driver}}</p>
+									<p>Driver details</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+				</tab>
+				<tab heading="Students">
+					<div class="scroller routedet" style="height: 300px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+						<div class="clearfix">&nbsp;</div>
+						<div style="padding:5px;">
+							<div ng-repeat="students in [1,2,3,4,5,6,7,8]">
+								<div class="col-md-2 no-data">
+									<div class="profile-userpic">
+										<img src="assets/admin/layout2/img/avatar.png" class="img-responsive" alt="" style="width:100%;">
+									</div>
+								</div>
+								<div class="col-md-8">
+									<p>Student name</p>
+									<p>Grade &nbsp; Division</p>
+									<p>Student Id</p>
+								</div>
+								<div class="col-md-2 no-data">
+									<p><i class="fa fa-envelope-o icon-fa-2x "></i></p>
+								</div>
+								<div class="clearfix"></div>
+								<hr style="border:1px solid #7ca7cc;"/>
+							</div>
+						</div>
+					</div>
+				</tab>
+			</tabset>
+		</div>
+	</div>
+</div>

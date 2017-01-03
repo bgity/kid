@@ -1,0 +1,273 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+	Parent Management
+</h3>
+<div class="page-bar">
+	<ul class="page-breadcrumb">
+		<li>
+			<i class="fa fa-home"></i>
+			<a href="#/dashboard.html">Home</a>
+			<i class="fa fa-angle-right"></i>
+		</li>
+		<li>
+			<a href="#/parent_management.html">Parent Management</a>
+		</li>
+	</ul>
+	<div class="page-toolbar">
+		<div class="btn-group pull-right">
+			<button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+			Actions <i class="fa fa-angle-down"></i>
+			</button>
+			<ul class="dropdown-menu pull-right" role="menu">
+				<li>
+					<a ng-click="selectedTemplate.path = 'views/addparent.html'">
+					<i class="fa fa-user-secret"></i> New Parent </a>
+				</li>
+				<!--<li>
+					<a href="#">
+					<i class="icon-present"></i> New Event <span class="badge badge-success">4</span>
+					</a>
+				</li>-->
+				
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+	<div class="col-md-6 col-sm-12">
+		<!-- BEGIN TABLE PORTLET-->
+		<div class="portlet box blue-madison">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-user-secret"></i>Parents
+				</div>
+				<div class="tools">
+				</div>
+			</div>
+			
+			<div class="portlet-body flip-scroll">
+				<div class="row">
+					<div class="col-md-6 col-sm-12">
+						<label>School:
+							<select class="form-control input-small input-inline" ng-model="filterItem.school" ng-options="school.name for school in filterOptions.schools"></select>
+						</label>
+					</div>
+					<div class="col-md-6 col-sm-12">
+						<div class="dataTables_filter pull-right">
+							<input type="search" class="form-control input-small input-inline input-circle" placeholder="Search" ng-model="query">
+						</div>
+					</div>
+					
+				</div>
+				<table class="table table-bordered table-striped table-condensed flip-content">
+					<thead class="flip-content">
+						<tr>
+							<th>
+								<input type="checkbox" class="regular-checkbox" ng-model="selectedAll" ng-change="checkAll()" />
+							</th>
+							<th>
+								Parent ID
+							</th>
+							<th>
+								First Name
+							</th>
+							<th>
+								Last Name
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="parent in filtered = (parents | filter:search | filter:customFilter)">
+							<td>
+								<input type="checkbox" id="{{ parent.id}}" class="regular-checkbox" ng-model="parent.checked" ng-click="checkedParent(parent.id)" /><label for="{{ parent.id}}">
+							</td>
+							<td>
+								{{parent.parent_id}}
+							</td>
+							<td>
+								{{parent.firstname}}
+							</td>
+							<td>
+								{{parent.lastname}}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- END TABLE PORTLET-->
+	</div>
+	
+	<!-- RIGHT SIDE AREA-->
+	<div class="col-md-6 col-sm-12 rightside">
+			<div data-ng-include="selectedTemplate.path"></div>
+			
+			<div class="clearfix" ng-if="checkedIndexs.length < 1 && !selectedTemplate.path">
+				<div class="portlet light bordered">
+					<div class="row text-center no-data">
+						<i class="fa fa-user-secret icon-fa-5x"></i>
+						<div>No Parent Selected</div>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix" ng-if="checkedIndexs.length > 1 && !selectedTemplate.path">
+				<div class="portlet light bordered text-center">
+					<h3>You have selected {{checkedIndexs.length}} records.</h3>
+					<button class="btn red btn-block">Delete Selected Records</button>
+				</div>
+			</div>
+			<div class="clearfix" ng-if="checkedIndexs.length ==1 && !selectedTemplate.path">
+				<div class="portlet light bordered">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="pull-right">
+								<a ng-hide="emodules" class="btn btn-sm grey-cascade" href="javascript:;">Edit <i class="fa fa-edit"></i></a>
+								<a class="btn btn-sm red" ng-click="deleteParentView(parents[checkedIndexs-1].id, parents[checkedIndexs-1].firstname, 'Parent')">Delete <i class="fa fa-times"></i></a>
+							</div>
+						</div>
+						<div class="clearfix">&nbsp;</div>
+						<div class="col-md-12">
+							<div class="portlet-body">
+								<div class="col-md-3">
+									<div class="row">
+										<div class="profile-userpic">
+											<img style="width:100%;" alt="" class="img-responsive" src="assets/admin/layout2/img/avatar.png">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-9">
+									<div class="portlet-body">
+										<div class="col-sm-8 static-info">
+											{{parents[checkedIndexs-1].firstname}} {{parents[checkedIndexs-1].lastname}}
+										</div>
+										<div class="col-sm-8 static-info">Contact No. : {{parents[checkedIndexs-1].contact_no}}</div>
+										<div class="col-sm-8 static-info">Parent ID : {{parents[checkedIndexs-1].parent_id}}</div>
+									</div>
+								</div>
+							</div>
+							<div class="clearfix">&nbsp;</div>
+							<hr/>
+						</div>
+						
+						<div class="clearfix">&nbsp;</div>
+						<div class="col-md-12">
+							<tabset justified="true" type="pills">
+								<tab heading="Bio">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-sm-12">
+												<div class="clearfix">&nbsp;</div>
+												<div class="portlet-body well">
+													<div class="row static-info">
+														<div class="col-md-5">Gender:</div>
+														<div class="col-md-7">{{parents[checkedIndexs-1].bio.gender}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Date of birth:</div>
+														<div class="col-md-7">{{parents[checkedIndexs-1].bio.dob}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Blood Group:</div>
+														<div class="col-md-7">{{parents[checkedIndexs-1].bio.blood_group}}</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</tab>
+								<tab heading="Contact">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-sm-12">
+												<div class="clearfix">&nbsp;</div>
+												<div class="portlet-body well">
+													<div class="row static-info">
+														<div class="col-md-5">Home Address:</div>
+														<div class="col-md-7">{{parents[checkedIndexs-1].contact.home_address}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Home Phone Number:</div>
+														<div class="col-md-7">{{parents[checkedIndexs-1].contact.home_phone}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Work Address:</div>
+														<div class="col-md-7">{{parents[checkedIndexs-1].contact.work_address}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Alternate Phone Number:</div>
+														<div class="col-md-7">{{parents[checkedIndexs-1].contact.alt_phone}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Email Address:</div>
+														<div class="col-md-7">{{parents[checkedIndexs-1].contact.email_address}}</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</tab>
+								
+								<tab heading="Links">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-sm-12">
+											<div class="scroller" style="height: 300px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+												<div class="clearfix">&nbsp;</div>
+												<div class="portlet-body well">
+													<table class="table table-bordered table-striped table-condensed flip-content">
+														<thead class="flip-content">
+															<th>Parent ID</th>
+															<th>Parent Name</th>
+															<th>Relation</th>
+															<th>Action</th>
+														</thead>
+														<tbody>
+															<tr ng-repeat="parent in parents[checkedIndexs-1].links.relation">
+																<td>{{parent.id}}</td>
+																<td>{{parent.name}}</td>
+																<td>{{parent.relation}}</td>
+																<td>
+																	<a tooltip="Edit Parent" tooltip-placement="bottom"  class="fa fa-edit" ng-click="editParentView($index)"></a> / <a tooltip="Delete Parent" tooltip-placement="bottom"  class="fa fa-trash-o" ng-click="deleteParentView($index)"></a>
+																</td>
+															</tr>
+														</tbody>
+													</table>													
+													<hr/>
+													<table class="table table-bordered table-striped table-condensed flip-content">
+														<thead class="flip-content">
+															<th>Student ID</th>
+															<th>Student Name</th>
+															<th>Grade</th>
+															<th>Division</th>
+															<th>Action</th>
+														</thead>
+														<tbody>
+															<tr ng-repeat="student in parents[checkedIndexs-1].links.students">
+																<td>{{student.id}}</td>
+																<td>{{student.name}}</td>
+																<td>{{student.grade}}</td>
+																<td>{{student.division}}</td>
+																<td>
+																	<a tooltip="Edit Sibling" tooltip-placement="bottom"  class="fa fa-edit" ng-click="editSiblingView($index)"></a> / <a tooltip="Delete Sibling" tooltip-placement="bottom"  class="fa fa-trash-o" ng-click="deleteSiblingView($index)"></a>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											</div>
+										</div>
+									</div>
+								</tab>
+							</tabset>
+						</div>
+
+					</div>
+						
+					</div>
+				</div>
+		</div>
+	</div>
+<!-- END MAIN CONTENT -->

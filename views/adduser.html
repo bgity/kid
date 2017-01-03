@@ -1,0 +1,163 @@
+<div class="clearfix rightside">
+	<div class="portlet light bordered">
+		<div class="row">
+			<form class="form-horizontal" name="frmuser" novalidate>
+			<div class="clearfix">&nbsp;</div>
+			<div class="col-md-12">
+				<div class="col-md-3">
+					<div class="row">
+						<div class="profile-userpic">
+							<img alt="" class="img-responsive" src="assets/admin/layout2/img/avatar.png">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<div class="portlet-body">
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<input type="text" class="form-control input-inline input-small" placeholder="First Name" ng-model="frm.firstname" name="firstname" required id="firstname" >
+									<div class="error_msg" ng-messages="frmuser.firstname.$error" ng-if="frmuser.$submitted">
+										<p ng-message="required">First name is required.</p>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-sm-6">
+								<div class="form-group">
+									<input type="text" class="form-control input-inline input-small" placeholder="Last Name" ng-model="frm.lastname" name="lastname" required id="lastname" >
+									<div class="error_msg" ng-messages="frmuser.lastname.$error" ng-if="frmuser.$submitted">
+										<p ng-message="required">Last name is required.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<select ng-model="frm.role" class="form-control input-small input-inline" ng-options="role.id as role.name for role in roles"></select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<input type="text" class="form-control input-inline input-small" placeholder="Position" ng-model="frm.position" name="position" required id="position" />
+									<div class="error_msg" ng-messages="frmuser.position.$error" ng-if="frmuser.$submitted">
+										<p ng-message="required">Position is required.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<select ng-model="frm.school" class="form-control input-small input-inline" ng-options="school.id as school.name for school in schools" name="school" required>
+										<option value='' disabled selected style='display:none;'>Select School</option>
+									</select>
+									<div class="error_msg" ng-messages="frmuser.school.$error" ng-if="frmuser.$submitted">
+										<p ng-message="required">School is required.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<hr/>
+			<!--<div class="col-md-12">
+				<div class="pull-right">
+					<a class="btn btn-sm grey-cascade" href="javascript:;">Change Password <i class="fa fa-link"></i></a>
+				</div>
+			</div>-->
+			<div class="clearfix">&nbsp;</div>
+			
+			<tabset justified="true" type="pills">
+				<tab heading="Personal Info">
+					<div class="clearfix">&nbsp;</div>
+					<div class="row">
+						<div class="col-md-12">
+						<div class="col-sm-12">
+							<div class="portlet-body">
+								<div class="row static-info">
+									<div class="col-md-5">Employee ID:</div>
+									<div class="col-md-7">{{getRandomSpan}}</div>
+								</div>
+								<div class="row">
+									<div class="col-md-5">Phone Number:</div>
+									<div class="col-md-7">
+										<div class="form-group">
+											<input type="text" class="form-control input-inline input-small" placeholder="" ng-model="frm.phone" name="phone" required id="phone" >
+											<div class="error_msg" ng-messages="frmuser.phone.$error" ng-if="frmuser.$submitted">
+												<p ng-message="required">Phone no. is required.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-5">Email Address:</div>
+									<div class="col-md-7">
+										<div class="form-group">
+											<input type="text" class="form-control input-inline input-small" placeholder="" ng-model="frm.email" name="email" required id="email" >
+											<div class="error_msg" ng-messages="frmuser.email.$error" ng-if="frmuser.$submitted">
+												<p ng-message="required">Email is required.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-5">Address:</div>
+									<div class="col-md-7">
+										<div class="form-group">
+											<textarea rows="1" class="form-control" ng-model="frm.address"></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div>
+										<div class="col-md-5">Additional Notes:</div>
+										<div class="col-md-7">&nbsp;</div>
+									</div>
+									<div class="col-md-12">
+										<textarea rows="1" class="form-control" ng-model="frm.add_notes"></textarea>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
+				</tab>
+				<tab heading="Classes" ng-show="frm.role == 3">
+					<div class="clearfix">&nbsp;</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="col-sm-12">
+								<div class="form-group text-center" ng-repeat="(i,class) in frm.classes" >
+									<select ng-model="class.grade" class="form-control input-small input-inline" ng-options="grade.id as grade.name for grade in grades">
+										<option value='' disabled selected style='display:none;'>Select Grade</option>
+									</select>
+									<select ng-model="class.division" class="form-control input-small input-inline" ng-options="division.id as division.name for division in divisions">
+										<option value='' disabled selected style='display:none;'>Select Division</option>
+									</select>
+								    <button type="button" class="btn btn-xs red" ng-click="frm.classes.splice(i, 1);">Remove<i class="fa fa-times"></i></button>
+								</div>
+								<button type="button" class="btn btn-xs green" ng-click="addFields(frm)">Add<i class="fa fa-plus"></i></button>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
+				</tab>
+			</tabset>
+			<div class="clearfix">&nbsp;</div>
+			<div class="row">
+				<div class="text-center">
+					<button class="btn btn-sm green" href="javascript:;">Save Changes <i class="fa fa-check"></i></button>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>

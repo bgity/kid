@@ -1,0 +1,440 @@
+<div class="clearfix">&nbsp;</div>
+<div class="portlet-body calendar_se">
+	<tabset class="tabs-left">
+		<tab heading="Academic Year">
+			<div class="row">
+			<div class="col-md-10" style="background-color:#FFF;">
+				<h3>Academic Year</h3>
+				<p>Allow Schools to Edit Calendar <label class="radio-inline"><input type="radio" value="yes" ng-model="frm.permission" name="permission" ng-required="!permission">Yes </label><label class="radio-inline"><input type="radio" value="no" ng-model="frm.permission" name="permission" ng-required="!permission">No </label><label class="radio-inline"><input type="radio" value="custom" ng-model="frm.permission" name="permission" ng-required="!permission">Custom </label>
+				</p>
+				<hr/>
+				<div class="row">
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control input-inline" placeholder="Calendar title" ng-model="frm.title" name="title" required id="title" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>From Date: 
+								<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="frm.from_date" name="from_date" required id="from_date" />
+							</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>To Date: 
+								<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="frm.to_date" name="to_date" required id="to_date" />
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-repeat="calendar in frm.calendars">
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control input-inline" id="datepicker" placeholder="Calendar title" ng-model="frm.title" name="title" id="title" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>From Date: 
+								<input type="text" id="datepicker" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="frm.from_date" name="from_date" id="from_date" />
+							</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>To Date: 
+								<input type="text" id="datepicker" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="frm.to_date" name="to_date" id="to_date" />
+							</label>
+						</div>
+					</div>
+					<div class="col-md-1">
+						<a type="button" class="btn btn-xs red" ng-click="frm.calendars.splice(i, 1);">Remove<i class="fa fa-times"></i></a>
+					</div>	
+				</div>
+				<div>
+					<a type="button" class="btn btn-xs green" ng-click="addCalendar(frm)"><i class="fa fa-plus"></i>Add Calendar</a>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+				<div class="col-md-12 text-center">
+					<a class="btn btn-xs green">Save Changes</a>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+			</div>
+			</div>
+		</tab>
+		<tab heading="Public Holidays">
+			<div class="row">
+			<div class="col-md-10" style="background-color:#FFF;">
+				<h3>Public Holidays 
+					<select class="form-control input-inline" ng-model="frm.year" ng-options="year for year in years">
+						<option value='' disabled selected style='display:none;'>Academic Year</option>
+					</select>
+				</h3>
+				<p>Allow Schools to Edit Calendar <label class="radio-inline"><input type="radio" value="yes" ng-model="frm.permission" name="permission" ng-required="!permission">Yes </label><label class="radio-inline"><input type="radio" value="no" ng-model="frm.permission" name="permission" ng-required="!permission">No </label><label class="radio-inline"><input type="radio" value="custom" ng-model="frm.permission" name="permission" ng-required="!permission">Custom </label>
+				</p>
+				<hr/>
+				<div class="row">
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control input-inline" placeholder="Holiday title" ng-model="frm.holiday_title" name="holiday_title" required id="holiday_title" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>From Date: 
+								<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="frm.holiday_from_date" name="holiday_from_date" required id="holiday_from_date" />
+							</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>To Date: 
+								<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="frm.holiday_to_date" name="holiday_to_date" required id="holiday_to_date" />
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-repeat="holiday in frm.holidays">
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control input-inline" id="datepicker" placeholder="Holiday title" ng-model="frm.holiday_title" name="holiday_title" id="holiday_title" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>From Date: 
+								<input type="text" id="datepicker" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="frm.holiday_from_date" name="holiday_from_date" id="holiday_from_date" />
+							</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>To Date: 
+								<input type="text" id="datepicker" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="frm.holiday_to_date" name="holiday_to_date" id="holiday_to_date" />
+							</label>
+						</div>
+					</div>
+					<div class="col-md-1">
+						<a type="button" class="btn btn-xs red" ng-click="frm.holidays.splice(i, 1);">Remove<i class="fa fa-times"></i></a>
+					</div>	
+				</div>
+				<div>
+					<a type="button" class="btn btn-xs green" ng-click="addHoliday(frm)"><i class="fa fa-plus"></i>Add Holiday</a>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+				<div>
+					<a type="button" class="btn btn-xs blue"><i class="fa fa-plus"></i>Import Calendar</a>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+				<div class="col-md-12 text-center">
+					<a class="btn btn-xs green">Save Changes</a>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+			</div>
+			</div>
+		</tab>
+		<tab heading="Generalized Events">
+			<div class="row">
+			<div class="col-md-10" style="background-color:#FFF;">
+				<h3>Generalized Events 
+					<select class="form-control input-inline" ng-model="frm.year" ng-options="year for year in years">
+						<option value='' disabled selected style='display:none;'>Academic Year</option>
+					</select>
+				</h3>
+				<p>Allow Schools to Edit Calendar <label class="radio-inline"><input type="radio" value="yes" ng-model="frm.permission" name="permission" ng-required="!permission">Yes </label><label class="radio-inline"><input type="radio" value="no" ng-model="frm.permission" name="permission" ng-required="!permission">No </label><label class="radio-inline"><input type="radio" value="custom" ng-model="frm.permission" name="permission" ng-required="!permission">Custom </label>
+				</p>
+				<hr/>
+				<div class="row" ng-repeat="event in events">
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control input-inline" placeholder="Event title" ng-model="event.event_title" name="event_title" required id="event_title" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>From Date: 
+								<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="event.event_from_date" name="event_from_date" required id="event_from_date" />
+							</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>To Date: 
+								<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="event.event_to_date" name="event_to_date" required id="event_to_date" />
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-repeat="event in frm.events">
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control input-inline" id="datepicker" placeholder="Event title" ng-model="frm.event_title" name="event_title" id="event_title" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>From Date: 
+								<input type="text" id="datepicker" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="frm.event_from_date" name="event_from_date" id="event_from_date" />
+							</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>To Date: 
+								<input type="text" id="datepicker" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="frm.event_to_date" name="event_to_date" id="event_to_date" />
+							</label>
+						</div>
+					</div>
+					<div class="col-md-1">
+						<a type="button" class="btn btn-xs red" ng-click="frm.events.splice(i, 1);">Remove<i class="fa fa-times"></i></a>
+					</div>	
+				</div>
+				<div>
+					<a type="button" class="btn btn-xs green" ng-click="addEvent(frm)"><i class="fa fa-plus"></i>Add Event</a>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+				<div>
+					<a type="button" class="btn btn-xs blue"><i class="fa fa-plus"></i>Import Calendar</a>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+				<div class="col-md-12 text-center">
+					<a class="btn btn-xs green">Save Changes</a>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+			</div>
+			</div>
+		</tab>
+		<tab heading="ICSE - Junior KG">
+			<div class="row">
+			<div class="col-md-10" style="background-color:#FFF;">
+				<h3>ICSE - Junior KG 
+					<select class="form-control input-inline" ng-model="frm.year" ng-options="year for year in years">
+						<option value='' disabled selected style='display:none;'>Academic Year</option>
+					</select>
+					Junior KG
+				</h3>
+				<p>Allow Schools to Edit Calendar <label class="radio-inline"><input type="radio" value="yes" ng-model="frm.permission" name="permission" ng-required="!permission">Yes </label><label class="radio-inline"><input type="radio" value="no" ng-model="frm.permission" name="permission" ng-required="!permission">No </label><label class="radio-inline"><input type="radio" value="custom" ng-model="frm.permission" name="permission" ng-required="!permission">Custom </label>
+				</p>
+				<hr/>
+				<div class="row" ng-repeat="icse_event in icse_events">
+					<div class="col-md-2">
+						<div class="form-group">
+							<select class="form-control input-inline input" ng-model="icse_event.subject" ng-options="subject.name for subject in subjects">
+								<option value='' disabled selected style='display:none;'>Subject</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control input-inline input-small" placeholder="Title" ng-model="icse_event.title" name="title" required id="title" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control input-inline" placeholder="Description" ng-model="icse_event.description" name="description" required id="description" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>From Date: 
+								<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="icse_event.from_date" name="from_date" required id="from_date" />
+							</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>To Date: 
+								<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="icse_event.to_date" name="to_date" required id="to_date" />
+							</label>
+							<a><i class="fa fa-eye"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-repeat="event in frm.icse_events">
+					<div class="col-md-2">
+						<div class="form-group">
+							<select class="form-control input-inline" ng-model="event.year" ng-options="subject.name for subject in subjects">
+								<option value='' disabled selected style='display:none;'>Subject</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control input-inline input-small" placeholder="Title" ng-model="icse_event.title" name="title" required id="title" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control input-inline" placeholder="Description" ng-model="icse_event.description" name="description" required id="description" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>From Date: 
+								<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="icse_event.from_date" name="from_date" required id="from_date" />
+							</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>To Date: 
+								<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="icse_event.to_date" name="to_date" required id="to_date" />
+							</label>
+							<a type="button" class="btn btn-xs red" ng-click="frm.icse_events.splice(i, 1);"><i class="fa fa-times"></i></a>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div>
+					<a type="button" class="btn btn-xs green" ng-click="addICSEEvent(frm)"><i class="fa fa-plus"></i>Add Deliverable</a>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+				<div>
+					<a type="button" class="btn btn-xs blue"><i class="fa fa-plus"></i>Import Curicullum</a>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+				<div class="col-md-12 text-center">
+					<a class="btn btn-xs green">Save Changes</a>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+			</div>
+			</div>
+		</tab>
+		<tab heading="+ Add Calendar">
+			<div class="row">
+			<div class="col-md-10" style="background-color:#FFF;">
+				<div class="clearfix">&nbsp;</div>
+				<div class="row">
+					
+					<div class="col-md-12">
+						
+						<div class="col-md-2">
+							<div class="form-group">
+								<input type="text" class="form-control input-inline input-small" placeholder="Curicullum name" ng-model="calendar.name" name="name" required id="name" />
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<select class="form-control input-inline input" ng-model="calendar.year" ng-options="year for year in years">
+									<option value='' disabled selected style='display:none;'>Academic Year</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<select class="form-control input-inline input" ng-model="calendar.grade" ng-options="grade.name for grade in subjects">
+									<option value='' disabled selected style='display:none;'>Grades</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-6">
+							Subjects
+							<div>
+								<a class="btn btn-sm blue">History<i class="fa fa-times icon-fa-2x"></i></a>
+							</div>
+							<div>&nbsp;</div>
+							<div class="form-group">
+								<input type="text" class="form-control input-lg" ng-model="addSubject" placeholder="Type to add more subjects"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12 text-center">
+						<a class="btn btn-xs green">Save Subjects</a>
+					</div>
+				</div>
+				<hr/>
+				<p>Allow Schools to Edit Calendar <label class="radio-inline"><input type="radio" value="yes" ng-model="frm.permission" name="permission" ng-required="!permission">Yes </label><label class="radio-inline"><input type="radio" value="no" ng-model="frm.permission" name="permission" ng-required="!permission">No </label><label class="radio-inline"><input type="radio" value="custom" ng-model="frm.permission" name="permission" ng-required="!permission">Custom </label>
+				</p>
+				<hr/>
+				<div class="row" ng-repeat="icse_event in icse_events">
+					<div class="col-md-2">
+						<div class="form-group">
+							<select class="form-control input-inline input" ng-model="icse_event.subject" ng-options="subject.name for subject in subjects">
+								<option value='' disabled selected style='display:none;'>Subject</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control input-inline input-small" placeholder="Title" ng-model="icse_event.title" name="title" required id="title" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control input-inline" placeholder="Description" ng-model="icse_event.description" name="description" required id="description" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>From Date: 
+								<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="icse_event.from_date" name="from_date" required id="from_date" />
+							</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>To Date: 
+								<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="icse_event.to_date" name="to_date" required id="to_date" />
+							</label>
+							<a><i class="fa fa-eye"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-repeat="deliverable in frm.deliverables">
+					<div class="col-md-2">
+						<div class="form-group">
+							<select class="form-control input-inline" ng-model="deliverable.subject" ng-options="subject.name for subject in subjects">
+								<option value='' disabled selected style='display:none;'>Subject</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control input-inline input-small" placeholder="Title" ng-model="deliverable.title" name="title" required id="title" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control input-inline" placeholder="Description" ng-model="deliverable.description" name="description" required id="description" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>From Date: 
+								<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="deliverable.from_date" name="from_date" required id="from_date" />
+							</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>To Date: 
+								<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" placeholder="" ng-model="deliverable.to_date" name="to_date" required id="to_date" />
+							</label>
+							<a type="button" class="btn btn-xs red" ng-click="frm.icse_events.splice(i, 1);"><i class="fa fa-times"></i></a>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div>
+					<a type="button" class="btn btn-xs green" ng-click="addDeliverable(frm)"><i class="fa fa-plus"></i>Add Deliverable</a>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+				<div>
+					<a type="button" class="btn btn-xs blue"><i class="fa fa-plus"></i>Import Curicullum</a>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+				<div class="col-md-12 text-center">
+					<a class="btn btn-xs green">Add Calendar</a>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+			</div>
+			</div>
+		</tab>
+	</tabset>
+</div>

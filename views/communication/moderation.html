@@ -1,0 +1,154 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="col-md-3">
+			<a class="btn blue btn-block" ng-click="mpost=true; lpost=false;">Moderation of Posts</a>
+		</div>
+		<div class="col-md-3">
+			<a class="btn blue btn-block" ng-click="mpost=false; lpost=true;">Language Moderation</a>
+		</div>
+	</div>
+</div>
+<div class="clearfix">&nbsp;</div>
+<div class="row">
+	<div class="col-md-12" ng-show="!lpost">
+		<div class="col-md-7">
+			<div data-handle-color="#D7DCE2" data-rail-visible1="0" data-always-visible="1" style="height: 400px; overflow:auto;" class="scroller">
+				<div style="padding:5px;">
+				<div class="no-gutter_pad10 postdiv" ng-repeat="post in posts" ng-class="{'postbg':$index == selectedRow}" ng-click="setClickedRow($index)">
+					<div class="col-md-1">
+						<div class="no-data">
+							<a ng-click="checkedMessage(post.id, 'mod');">
+							<i class="fa fa-globe icon-fa-2x"></i>
+							</a>
+						</div>
+					</div>
+					<div class="col-md-10">
+						<div class="row">
+							<div class="col-md-3">{{post.from_name}}</div>
+							<div class="col-md-3">{{post.from_role}}</div>
+							<div class="col-md-3">{{post.to_name}}</div>
+							<div class="col-md-3">{{post.to_role}}</div>
+						</div>
+						<hr class="no-marg"/>
+						<div class="row portlet-body postmsg">
+							<div class="col-md-12">
+								{{post.message}}
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="no-data">
+							<i class="fa fa-trash-o"></i>
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="col-md-5 postdiv" ng-if="checkedIndexs > 0;">
+			<form class="form-horizontal" valid-submit="updatepost()" name="frmpost" novalidate>
+			<div class="portlet-body">
+				<div class="row no-gutter_pad10">
+					<div class="col-md-3">
+						<p>{{posts[checkedIndexs-1].from_name}}</p>
+						<p>{{posts[checkedIndexs-1].to_name}}</p>
+					</div>
+					<div class="col-md-3">
+						<p>{{posts[checkedIndexs-1].from_role}}</p>
+						<p>{{posts[checkedIndexs-1].to_role}}</p>
+					</div>
+					<div class="col-md-6">
+						<a class="btn green btn-xs">Save</a>
+						<a class="btn red btn-xs">Delete</a>
+						<a class="btn blue btn-xs">Publish</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group" style="padding:5px;">
+							<textarea class="form-control" ng-model="frm.message" rows="5"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+	
+	<!-- Language Moderation -->
+	<div class="col-md-12">
+		<div class="col-sm-12">
+			<input type="search" class="form-control input-small input-inline input-circle" placeholder="Search" ng-model="search.message">
+		</div>
+	</div>
+	<div class="col-md-12 no-gutter_pad10" ng-show="lpost">
+		<div class="col-md-6">
+			<div data-handle-color="#D7DCE2" data-rail-visible1="0" data-always-visible="1" style="height: 400px; overflow:auto;" class="scroller">
+				<div style="padding:5px;">
+				<div class="no-gutter_pad10 postdiv" ng-repeat="post in filtered = (posts | filter:search)">
+					<div class="col-md-1">
+						<div class="no-data">
+							<i class="fa fa-globe icon-fa-2x"></i>
+						</div>
+					</div>
+					<div class="col-md-10">
+						<div class="row">
+							<div class="col-md-3">{{post.from_name}}</div>
+							<div class="col-md-3">{{post.from_role}}</div>
+							<div class="col-md-3">{{post.to_name}}</div>
+							<div class="col-md-3">{{post.to_role}}</div>
+						</div>
+						<hr class="no-marg"/>
+						<div class="row portlet-body postmsg">
+							<div class="col-md-12">
+								{{post.message}}
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="no-data">
+							<i class="fa fa-trash-o"></i>
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<span><b>Posts that conflict with predefined filters.</b></span>
+			<div data-handle-color="#D7DCE2" data-rail-visible1="0" data-always-visible="1" style="height: 400px; overflow:auto;" class="scroller">
+				<div style="padding:5px;">
+				<div class="no-gutter_pad10 postdiv" ng-repeat="post in (posts.slice().reverse())">
+					<div class="col-md-1">
+						<div class="no-data">
+							<i class="fa fa-globe icon-fa-2x"></i>
+						</div>
+					</div>
+					<div class="col-md-10">
+						<div class="row">
+							<div class="col-md-3">{{post.from_name}}</div>
+							<div class="col-md-3">{{post.from_role}}</div>
+							<div class="col-md-3">{{post.to_name}}</div>
+							<div class="col-md-3">{{post.to_role}}</div>
+						</div>
+						<hr class="no-marg"/>
+						<div class="row portlet-body postmsg">
+							<div class="col-md-12">
+								{{post.message}}
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="no-data">
+							<i class="fa fa-trash-o"></i>
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>

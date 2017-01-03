@@ -1,0 +1,517 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+	Student Management
+</h3>
+<div class="page-bar">
+	<ul class="page-breadcrumb">
+		<li>
+			<i class="fa fa-home"></i>
+			<a href="#/dashboard.html">Home</a>
+			<i class="fa fa-angle-right"></i>
+		</li>
+		<li>
+			<a href="#/student_management.html">Student Management</a>
+		</li>
+	</ul>
+	<div class="page-toolbar">
+		<div class="btn-group pull-right">
+			<button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+			Actions <i class="fa fa-angle-down"></i>
+			</button>
+			<ul class="dropdown-menu pull-right" role="menu">
+				<li>
+					<a ng-click="selectedTemplate.path = 'views/addstudent.html'">
+					<i class="fa fa-graduation-cap"></i> New Student </a>
+				</li>
+				<!--<li>
+					<a href="#">
+					<i class="icon-present"></i> New Event <span class="badge badge-success">4</span>
+					</a>
+				</li>-->
+				
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+	<div class="col-md-6 col-sm-12">
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet box blue-madison">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-graduation-cap"></i>Students
+				</div>
+				<div class="tools">
+				</div>
+			</div>
+			
+			<div class="portlet-body flip-scroll">
+				<div class="row">
+					<div class="col-md-6 col-sm-12">
+						<select class="form-control input-xsmall input-inline" ng-model="filterItem.school" ng-options="school.name for school in filterOptions.schools"><option value='' disabled selected style='display:none;'>School</option></select>
+						<select class="form-control input-xsmall input-inline" ng-model="filterItem.grade" ng-options="grade.name for grade in filterOptions.grades"><option value='' disabled selected style='display:none;'>Grade</option></select>
+						<select class="form-control input-xsmall input-inline" ng-model="filterItem.division" ng-options="division.name for division in filterOptions.divisions"><option value='' disabled selected style='display:none;'>Division</option></select>
+					</div>
+					<div class="col-md-6 col-sm-12">
+						<div class="dataTables_filter pull-right">
+							<input type="search" class="form-control input-small input-inline input-circle" placeholder="Search" ng-model="search.firstname">
+						</div>
+					</div>
+					
+				</div>
+				<div class="clearfix">&nbsp;</div>
+				<table class="table table-bordered table-striped table-condensed flip-content">
+					<thead class="flip-content">
+						<tr>
+							<th>
+								<input type="checkbox" class="regular-checkbox" ng-model="selectedAll" ng-change="checkAll('inbox')" />
+							</th>
+							<th>
+								Student ID
+							</th>
+							<th>
+								Student Name
+							</th>
+							<th>
+								School
+							</th>
+							<th>
+								Grade
+							</th>
+							<th>
+								Division
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="student in filtered = (students | filter:search | filter:customFilter)">
+							<td>
+								<input type="checkbox" id="{{ student.id}}" class="regular-checkbox" ng-model="student.checked" ng-click="checkedStudent(student.id)" /><label for="{{ student.id}}">
+							</td>
+							<td>
+								{{student.student_id}}
+							</td>
+							<td>
+								{{student.firstname}} {{student.lastname}}
+							</td>
+							<td>
+								{{student.bio.school}}
+							</td>
+							<td>
+								{{student.bio.grade}}
+							</td>
+							<td>
+								{{student.bio.division}}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- END EXAMPLE TABLE PORTLET-->
+	</div>
+	
+	<!-- RIGHT SIDE AREA-->
+	<div class="col-md-6 col-sm-12 rightside">
+			<div data-ng-include="selectedTemplate.path"></div>
+			
+			<div class="clearfix" ng-if="checkedIndexs.length < 1 && !selectedTemplate.path">
+				<div class="portlet light bordered">
+					<div class="row text-center no-data">
+						<i class="fa fa-graduation-cap icon-fa-5x"></i>
+						<div>No Student Selected</div>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix" ng-if="checkedIndexs.length > 1 && !selectedTemplate.path">
+				<div class="portlet light bordered">
+					<h3>You have selected {{checkedIndexs.length}} records.</h3>
+					<button class="btn grey btn-primary">Reset Password for Selected Records</button>
+					<button class="btn red btn-primary">Delete Selected Records</button>
+				</div>
+			</div>
+			<div class="clearfix" ng-if="checkedIndexs.length ==1 && !selectedTemplate.path">
+				<div class="portlet light bordered">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="pull-right">
+								<a ng-hide="emodules" class="btn btn-sm grey-cascade" href="javascript:;">Edit <i class="fa fa-edit"></i></a>
+								<a class="btn btn-sm red" ng-click="deleteStudentView(students[checkedIndexs-1].id, students[checkedIndexs-1].name)">Delete <i class="fa fa-times"></i></a>
+							</div>
+						</div>
+						<div class="clearfix">&nbsp;</div>
+						<div class="col-md-12">
+							<div class="portlet-body">
+								<div class="col-md-3">
+									<div class="row">
+										<div class="profile-userpic">
+											<img style="width:100%;" alt="" class="img-responsive" src="assets/admin/layout2/img/avatar.png">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-9">
+									<div class="portlet-body">
+										<div class="col-sm-8 static-info">
+											{{students[checkedIndexs-1].firstname}} {{students[checkedIndexs-1].lastname}}
+										</div>
+										<div class="col-sm-8 static-info">{{students[checkedIndexs-1].student_id}}</div>
+									</div>
+								</div>
+							</div>
+							<div class="clearfix">&nbsp;</div>
+							<hr/>
+						</div>
+						
+						<div class="clearfix">&nbsp;</div>
+						<div class="col-md-12">
+							<tabset justified="true" type="pills">
+								<tab heading="Bio">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-sm-12">
+												<div class="clearfix">&nbsp;</div>
+												<div class="portlet-body well">
+													<div class="row static-info">
+														<div class="col-md-5">Gender:</div>
+														<div class="col-md-7">{{students[checkedIndexs-1].bio.gender}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Birth Date:</div>
+														<div class="col-md-7">{{students[checkedIndexs-1].bio.dob}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Estd Graduation Date:</div>
+														<div class="col-md-7">{{students[checkedIndexs-1].bio.est_grad_date}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">School ID:</div>
+														<div class="col-md-7"></div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">School Branch Name:</div>
+														<div class="col-md-7">{{students[checkedIndexs-1].bio.school}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Grade:</div>
+														<div class="col-md-7">{{students[checkedIndexs-1].bio.grade}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Division:</div>
+														<div class="col-md-7">{{students[checkedIndexs-1].bio.division}}</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</tab>
+								<tab heading="Contact">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-sm-12">
+												<div class="clearfix">&nbsp;</div>
+												<div class="scroller" style="height: 300px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+												<div class="portlet-body well">
+													<div class="row static-info">
+														<div class="col-md-5">Phone Number:</div>
+														<div class="col-md-7">{{students[checkedIndexs-1].contact.phone}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Home Address:</div>
+														<div class="col-md-7">{{students[checkedIndexs-1].contact.address}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Emergency Contact Name:</div>
+														<div class="col-md-7">{{students[checkedIndexs-1].contact.emergency_cname}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Emergency Contact Number:</div>
+														<div class="col-md-7">{{students[checkedIndexs-1].contact.emergency_cnumber}}</div>
+													</div>
+												</div>
+												
+												<div class="portlet-body">
+													<div><b>Family</b></div>
+													<div class="well">
+													<table class="table table-bordered table-striped table-condensed flip-content">
+														<thead class="flip-content">
+															<th>Parent ID</th>
+															<th>Parent Name</th>
+															<th>Relation</th>
+															<th>Action</th>
+														</thead>
+														<tbody>
+															<tr ng-repeat="parent in students[checkedIndexs-1].contact.family[0].parents">
+																<td>{{parent.id}}</td>
+																<td>{{parent.name}}</td>
+																<td>{{parent.relation}}</td>
+																<td>
+																	<a tooltip="Edit Parent" tooltip-placement="bottom"  class="fa fa-edit" ng-click="editParentView($index)"></a> / <a tooltip="Delete Parent" tooltip-placement="bottom"  class="fa fa-trash-o" ng-click="deleteParentView($index)"></a>
+																</td>
+															</tr>
+														</tbody>
+													</table>													
+													<hr/>
+													<table class="table table-bordered table-striped table-condensed flip-content">
+														<thead class="flip-content">
+															<th>Student ID</th>
+															<th>Student Name</th>
+															<th>Grade</th>
+															<th>Division</th>
+															<th>Action</th>
+														</thead>
+														<tbody>
+															<tr ng-repeat="sibling in students[checkedIndexs-1].contact.family[1].siblings">
+																<td>{{sibling.student_id}}</td>
+																<td>{{sibling.name}}</td>
+																<td>{{sibling.grade}}</td>
+																<td>{{sibling.division}}</td>
+																<td>
+																	<a tooltip="Edit Sibling" tooltip-placement="bottom"  class="fa fa-edit" ng-click="editSiblingView($index)"></a> / <a tooltip="Delete Sibling" tooltip-placement="bottom"  class="fa fa-trash-o" ng-click="deleteSiblingView($index)"></a>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+													</div>
+												</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</tab>
+								<tab heading="Enrollment">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-sm-12">
+											<div class="scroller" style="height: 300px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+												<div class="clearfix">&nbsp;</div>
+												<div class="portlet-body well">
+													<div class="row static-info">
+														<div class="col-md-5">Start Date:</div>
+														<div class="col-md-7">{{students[checkedIndexs-1].enrollment.start_date}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Estimated End Date:</div>
+														<div class="col-md-7">{{students[checkedIndexs-1].enrollment.est_end_date}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Curicullum Selection:</div>
+														<div class="col-md-7">{{students[checkedIndexs-1].enrollment.curicullum}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Current Class:</div>
+														<div class="col-md-7">{{students[checkedIndexs-1].enrollment.curr_class}}</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Current Division:</div>
+														<div class="col-md-7">{{students[checkedIndexs-1].enrollment.curr_division}}</div>
+													</div>
+												</div>
+												<div class="portlet-body">
+													<div><b>Subjects</b></div>
+													<div class="well">
+														<div class="row static-info" ng-repeat="subject in students[checkedIndexs-1].enrollment.subjects">
+															<div class="col-md-5">{{subject.subject}}</div>
+															<div class="col-md-7">{{subject.teacher}}</div>
+														</div>
+													</div>
+												</div>
+												
+												<div class="portlet-body">
+													<div><b>Transport Details</b></div>
+													<div class="well">
+														<div class="row static-info">
+															<div class="col-md-5">Route:</div>
+															<div class="col-md-7">{{students[checkedIndexs-1].enrollment.transport.route}}</div>
+														</div>
+														<div class="row static-info">
+															<div class="col-md-5">Co-ordinator:</div>
+															<div class="col-md-7">{{students[checkedIndexs-1].enrollment.transport.coordinator}}</div>
+														</div>
+														<div class="row static-info">
+															<div class="col-md-5">Driver:</div>
+															<div class="col-md-7">{{students[checkedIndexs-1].enrollment.transport.driver}}</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											</div>
+										</div>
+									</div>
+								</tab>
+								<tab heading="Attendance">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-sm-12">
+												<div class="portlet-body">
+													<div class="well">
+														<div class="row static-info">
+															<div class="col-md-6">
+																<select class="form-control input-inline" ng-model="frm.year" ng-options="year for year in years">
+																	<option value='' disabled selected style='display:none;'>Select Year</option>
+																</select>
+															</div>
+															<div class="col-md-6">
+																<select class="form-control input-inline" ng-model="frm.term" ng-options="term for term in terms">
+																	<option value='' disabled selected style='display:none;'>Select Term</option>
+																</select>
+															</div>
+														</div>
+														<div class="row static-info">
+															<div class="col-md-5">Total Working Days:</div>
+															<div class="col-md-7"><b class="badge badge-primary">{{students[checkedIndexs-1].attendance.total}}</b></div>
+														</div>
+														<div class="row static-info">
+															<div class="col-md-5">Days Attended:</div>
+															<div class="col-md-7"><b class="badge badge-success">{{students[checkedIndexs-1].attendance.attended}}</b></div>
+														</div>
+														<div class="row static-info">
+															<div class="col-md-5">Days Absent:</div>
+															<div class="col-md-7"><b class="badge badge-danger">{{students[checkedIndexs-1].attendance.absent}}</b></div>
+														</div>
+														<div class="row static-info">
+															<div class="col-md-5">Excused Leave:</div>
+															<div class="col-md-7"><b class="badge badge-warning">{{students[checkedIndexs-1].attendance.excused}}</b></div>
+														</div>
+														<div class="row static-info">
+															<div class="col-md-12">
+																<div class="progress">
+																  <div class="progress-bar progress-bar-success" role="progressbar" style="width:{{ (students[checkedIndexs-1].attendance.attended / students[checkedIndexs-1].attendance.total) * 100 }}%">
+																  </div>
+																  <div class="progress-bar progress-bar-danger" role="progressbar" style="width:{{ (students[checkedIndexs-1].attendance.absent / students[checkedIndexs-1].attendance.total) * 100 }}%">
+																  </div>
+																  <div class="progress-bar progress-bar-warning" role="progressbar" style="width:{{ (students[checkedIndexs-1].attendance.excused / students[checkedIndexs-1].attendance.total) * 100 }}%">
+																  </div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</tab>
+								<tab heading="Medical">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-sm-12">
+												<div class="clearfix">&nbsp;</div>
+												<div class="scroller" style="height: 300px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+												<div class="portlet-body well">
+													<div class="row static-info">
+														<div class="col-md-12">
+															<div class="col-md-4">Blood Group</div>
+															<div class="col-md-4">Weight</div>
+															<div class="col-md-4">Height</div>
+														</div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Physician Name:</div>
+														<div class="col-md-7"></div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Physician Contact Number:</div>
+														<div class="col-md-7"></div>
+													</div>
+													<div class="row static-info">
+														<div class="col-md-5">Physician Address:</div>
+														<div class="col-md-7"></div>
+													</div>
+												</div>
+												<div class="portlet-body">
+													<div class="well">
+														<div class="row static-info">	
+														<div class="col-md-12">
+															<b>Allergies</b>
+															<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+														</div>
+													</div>
+													</div>
+												</div>
+												
+												<div class="portlet-body">
+													<div class="well">
+														<div class="row static-info">	
+															<div class="col-md-7">
+																<b>Medication History</b>
+																<p>January 21 : Vaccination 1</p>
+																<p>March 21 : Vaccination 2</p>
+																<p>June 25 : Vaccination 3</p>
+															</div>
+															<div class="col-md-5">
+																<a class="btn btn-sm grey">View More</a>
+															</div>
+													</div>
+													</div>
+												</div>
+												
+												<div class="portlet-body">
+													<div class="well">
+														<div class="row static-info">	
+															<div class="col-md-12">
+																<b>Conditions:</b>
+																<p>Diabetes, Asthma</p>
+															</div>
+														</div>
+														<div class="row static-info">	
+															<div class="col-md-12">
+																<b>Family History:</b>
+																<p>Heart Diseases</p>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+												<div class="portlet-body">
+													<div class="well">
+														<div class="row static-info">	
+															<div class="col-md-7">
+																<b>Vaccination Record</b>
+																<p>Total vaccination Due</p>
+																<p>Total Completed</p>
+																<p>Next Vaccination Due on</p>
+															</div>
+															<div class="col-md-5">
+																<a class="btn btn-sm grey">View More</a>
+															</div>
+													</div>
+													</div>
+												</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</tab>
+								<tab heading="Notes">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-sm-12">
+												<div class="clearfix">&nbsp;</div>
+												<div class="portlet-body well">
+														<label>Additional Notes:</label>
+														<p>{{students[checkedIndexs-1].notes.note}}</p>
+														
+														<label>Attachments:</label>
+														<div class="row" ng-repeat="note in students[checkedIndexs-1].notes.attachments">
+															<div class="col-md-12">
+															<div class="col-md-2"><i class="fa  fa-file-image-o"></i></div>
+															<div class="col-md-6">{{note.name}}</div>
+															<div class="col-md-4">{{note.date}}</div>
+															</div>
+														</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</tab>
+							</tabset>
+						</div>
+
+					</div>
+						
+					</div>
+				</div>
+		</div>
+	</div>
+<!-- END MAIN CONTENT -->

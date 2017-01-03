@@ -1,0 +1,171 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+	Media Centre
+</h3>
+<div class="page-bar">
+	<ul class="page-breadcrumb">
+		<li>
+			<i class="fa fa-home"></i>
+			<a href="#/dashboard.html">Home</a>
+			<i class="fa fa-angle-right"></i>
+		</li>
+		<li>
+			<a href="#/media_centre.html">Media Centre</a>
+		</li>
+	</ul>
+	<div class="page-toolbar">
+		<div class="btn-group pull-right">
+			<button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+			Actions <i class="fa fa-angle-down"></i>
+			</button>
+			<ul class="dropdown-menu pull-right" role="menu">
+				<li>
+					<a ng-click="selectedTemplate.path = 'views/addmedia.html'">
+					<i class="fa fa-file-image-o"></i> Add Media </a>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+	<div class="col-md-7 col-sm-12">
+		<!-- BEGIN TABLE PORTLET-->
+		<div class="portlet box blue-madison">
+			
+			<div class="portlet-body flip-scroll">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="pull-right calendar_se">
+							<label>From:<input type="text" id="datepicker" ng-datepicker ng-model="frm.from"></label>
+							<label>To:<input type="text" id="datepicker" ng-datepicker ng-model="frm.to"></label>
+							<select class="form-control input-small input-inline" ng-model="frm.sort_by" ng-options="sort.name for sort in sortby"><option value='' disabled selected style='display:none;'>Sort By</option></select>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+				<div class="tiles">
+					<div class="tile double bg-blue-hoki" ng-click="loadContent();">
+						<div class="tile-body">
+							<i class="fa fa-video-camera "></i>
+						</div>
+						<div class="tile-object">
+							<div class="name">
+								 Test Video
+							</div>
+						</div>
+					</div>
+					<div class="tile bg-green-meadow" ng-click="loadContent();">
+						<div class="tile-body">
+							<i class="fa fa-music "></i>
+						</div>
+						<div class="tile-object">
+							<div class="name">
+								 Learn Twinkle
+							</div>
+						</div>
+					</div>
+					<div class="tile bg-yellow-saffron" ng-click="loadContent();">
+						<div class="tile-body">
+							<i class="fa fa-image"></i>
+						</div>
+						<div class="tile-object">
+							<div class="name">
+								 Image file
+							</div>
+						</div>
+					</div>
+					<div class="tile bg-yellow-saffron" ng-click="loadContent();">
+						<div class="tile-body">
+							<i class="fa fa-image"></i>
+						</div>
+						<div class="tile-object">
+							<div class="name">
+								 Image file
+							</div>
+						</div>
+					</div>
+					<div class="tile bg-green-meadow" ng-click="loadContent();">
+						<div class="tile-body">
+							<i class="fa fa-music"></i>
+						</div>
+						<div class="tile-object">
+							<div class="name">
+								 Feedback
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END TABLE PORTLET-->
+	</div>
+	
+	<!-- RIGHT SIDE AREA-->
+	<div class="col-md-5 col-sm-12 rightside">
+			<div data-ng-include="selectedTemplate.path"></div>
+			
+			<div class="clearfix" ng-if="!loadcontent && !selectedTemplate.path">
+				<div class="portlet light bordered">
+					<div class="row text-center no-data">
+						<i class="fa fa-file-image-o icon-fa-5x"></i>
+						<div>No Media Selected</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="clearfix" ng-if="loadcontent && !selectedTemplate.path">
+				<div class="portlet light bordered">
+					<div class="row">
+						<div class="col-md-12 text-center" style="min-height:250px; border:1px solid #DDD;">
+							Video/Music/Image will be rendered here
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
+					<hr/>
+					<div class="clearfix">&nbsp;</div>
+					<div class="row">
+						<div class="col-md-12">
+							<p style="font-size:16px; font-weight:bold;">Caption for the Media File</p>
+							<p>Date: 31/08/2015</p>
+							<div class="portlet-body no-gutter_pad10">
+								<div class="col-md-3">
+									<select class="form-control" ng-model="frm.school" ng-options="school.name for school in schools" multiple>
+										<option value='' disabled selected style='display:none;'>School</option>
+									</select>
+								</div>
+								<div class="col-md-3">
+									<select class="form-control" ng-model="frm.grade" ng-options="grade.name for grade in grades" multiple>
+										<option value='' disabled selected style='display:none;'>Grade</option>
+									</select>
+								</div>
+								<div class="col-md-3">
+									<select class="form-control" ng-model="frm.division" ng-options="division.name for division in divisions" multiple>
+										<option value='' disabled selected style='display:none;'>Division</option>
+									</select>
+								</div>
+								<div class="col-md-3">
+									<select class="form-control" ng-model="frm.topic" ng-options="topic.name for topic in topics" multiple>
+										<option value='' disabled selected style='display:none;'>Topic</option>
+									</select>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="pull-right">
+								<a class="btn btn-sm red">Delete</a>
+								<a class="btn btn-sm grey">Edit</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+</div>
+<!-- END MAIN CONTENT -->

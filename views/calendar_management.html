@@ -1,0 +1,47 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+	Calendar Management
+</h3>
+<div class="page-bar">
+	<ul class="page-breadcrumb">
+		<li>
+			<i class="fa fa-home"></i>
+			<a href="#/dashboard.html">Home</a>
+			<i class="fa fa-angle-right"></i>
+		</li>
+		<li>
+			<a href="#/calendar_management.html">Calendar Management</a>
+		</li>
+	</ul>
+	
+	<div class="page-toolbar">
+		<div ng-show="manage" class="btn-group pull-right">
+			<button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+			Actions <i class="fa fa-angle-down"></i>
+			</button>
+			<ul class="dropdown-menu pull-right" role="menu">
+				<li ng-show="manage">
+					<a ng-click="addEvent();">
+					<i class="icon-user"></i> New Event </a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- END PAGE HEADER-->
+<div class="row">
+	<div class="col-md-12">
+		<div class="col-md-4">
+			<a class="btn blue btn-block" ng-click="selectedTemplate.path = 'views/calendar/manage.html'; manage=true;">Manage Calendars</a>
+		</div>
+		<div class="col-md-4">
+			<a class="btn blue btn-block" ng-click="selectedTemplate.path = 'views/calendar/settings.html'; manage=false;">Settings</a>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div ng-include="selectedTemplate.path"></div>
+		
+	</div>
+</div>

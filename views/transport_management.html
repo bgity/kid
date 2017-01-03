@@ -1,0 +1,51 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+	Transport Management
+</h3>
+<div class="page-bar">
+	<ul class="page-breadcrumb">
+		<li>
+			<i class="fa fa-home"></i>
+			<a href="#/dashboard.html">Home</a>
+			<i class="fa fa-angle-right"></i>
+		</li>
+		<li>
+			<a href="#/transport_management.html">Transport Management</a>
+		</li>
+	</ul>
+	<!--<div class="page-toolbar">
+		<div class="btn-group pull-right">
+			<button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+			Actions <i class="fa fa-angle-down"></i>
+			</button>
+			<ul class="dropdown-menu pull-right" role="menu">
+				<li>
+					<a ng-click="selectedTemplate.path = 'views/addtransport.html'">
+					<i class="fa fa-building-o"></i> New Transport </a>
+				</li>
+			</ul>
+		</div>
+	</div>-->
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+	<div class="col-md-12">
+		<div class="portlet light bordered">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-md-4">
+						<a class="btn blue btn-block" ng-click="selectedTemplate.path = 'views/transport/overview.html'">Overview</a>
+					</div>
+					<div class="col-md-4">
+						<a class="btn blue btn-block" ng-click="selectedTemplate.path = 'views/transport/route.html'">Route Manager</a>
+					</div>
+					<div class="col-md-4">
+						<a class="btn blue btn-block" ng-click="selectedTemplate.path = 'views/transport/settings.html'">Settings</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div data-ng-include="selectedTemplate.path"></div>
+</div>

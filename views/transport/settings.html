@@ -1,0 +1,405 @@
+<div class="col-md-7 col-sm-12">{{vehiclest}}-{{driverst}}-{{coordinatorst}}
+	<!-- BEGIN TABLE PORTLET-->
+	<div class="portlet light bordered">
+		<div class="clearfix">&nbsp;</div>
+		<div class="portlet-body flip-scroll" >
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-md-3">
+						<select class="form-control input-small input-inline" ng-model="filterItem.school" ng-options="school.name for school in filterOptions.schools"></select>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix">&nbsp;</div>
+			<div class="row">
+				<div class="col-md-12">
+					<tabset class="tabs-left">
+						<tab heading="Vehicles" ng-click="activeTab('vehiclest');">
+							<div class="clearfix no-gutter_pad10">
+								<div class="col-md-9">
+									<table class="table table-bordered table-striped table-condensed flip-content">
+										<thead class="flip-content">
+											<tr>
+												<th>
+													<input type="checkbox" class="regular-checkbox" ng-model="$parent.selectedAll" ng-change="checkAll()" />
+												</th>
+												<th>
+													Vehicle Id
+												</th>
+												<th>
+													Purchase Date
+												</th>
+												<th>
+													Vehicle Number
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="vehicle in filtered = (vehicles | filter:customFilter)">
+												<td>
+													<input type="checkbox" id="{{ vehicle.id}}" class="regular-checkbox" ng-model="vehicle.checked" ng-click="checkedRoute(vehicle.id)" /><label for="{{ vehicle.id}}">
+												</td>
+												<td>
+													{{vehicle.vehicle_id}}
+												</td>
+												<td>
+													{{vehicle.pur_date}}
+												</td>
+												<td>
+													{{vehicle.vehicle_no}}
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</tab>
+						<tab heading="Drivers" ng-click="activeTab('driverst');">
+							<div class="clearfix no-gutter_pad10">
+								<div class="col-md-9">
+									<table class="table table-bordered table-striped table-condensed flip-content">
+										<thead class="flip-content">
+											<tr>
+												<th>
+													<input type="checkbox" class="regular-checkbox" ng-model="$parent.selectedAll" ng-change="checkAll()" />
+												</th>
+												<th>
+													Employee Id
+												</th>
+												<th>
+													Driver Name
+												</th>
+												<th>
+													Driver Phone
+												</th>
+												<th>
+													Route No.
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="driver in filtered = (drivers | filter:customFilter)">
+												<td>
+													<input type="checkbox" id="{{ driver.id}}" class="regular-checkbox" ng-model="driver.checked" ng-click="checkedRoute(driver.id)" /><label for="{{ driver.id}}">
+												</td>
+												<td>
+													{{driver.emp_id}}
+												</td>
+												<td>
+													{{driver.name}}
+												</td>
+												<td>
+													{{driver.phone}}
+												</td>
+												<td>
+													{{driver.route}}
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</tab>
+						<tab heading="Coordinators" ng-click="activeTab('coordinatorst');">
+							<div class="clearfix no-gutter_pad10">
+								<div class="col-md-9">
+									<table class="table table-bordered table-striped table-condensed flip-content">
+										<thead class="flip-content">
+											<tr>
+												<th>
+													<input type="checkbox" class="regular-checkbox" ng-model="$parent.selectedAll" ng-change="checkAll('vehicles')" />
+												</th>
+												<th>
+													Employee ID
+												</th>
+												<th>
+													Coordinator Name
+												</th>
+												<th>
+													Coordinator Phone
+												</th>
+												<th>
+													Route No.
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="coordinator in filtered = (coordinators | filter:customFilter)">
+												<td>
+													<input type="checkbox" id="{{ coordinator.id}}" class="regular-checkbox" ng-model="coordinator.checked" ng-click="checkedRoute(coordinator.id)" /><label for="{{ coordinator.id}}">
+												</td>
+												<td>
+													{{coordinator.emp_id}}
+												</td>
+												<td>
+													{{coordinator.name}}
+												</td>
+												<td>
+													{{coordinator.phone}}
+												</td>
+												<td>
+													{{coordinator.route}}
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</tab>
+					</tabset>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix">&nbsp;</div>
+	</div>
+	
+	<!-- END TABLE PORTLET-->
+</div>
+	
+	<!-- RIGHT SIDE AREA-->
+<div class="col-md-5 col-sm-12 rightside">
+		<div class="clearfix" ng-if="checkedIndexs.length < 1">
+			<div class="portlet light bordered">
+				<div class="row text-center">
+					<div>&nbsp;</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix" ng-if="checkedIndexs.length > 1">
+			<div class="portlet light bordered">
+				<h3 class="text-center">You have selected {{checkedIndexs.length}} records.</h3>
+				<button class="btn red btn-block">Delete Selected Records</button>
+			</div>
+		</div>
+		<div class="clearfix" ng-if="checkedIndexs.length ==1 && vehiclest">
+			<div class="portlet light bordered">
+				<div class="row">
+					<div class="col-md-12">
+						<a class="fa fa-angle-left icon-fa-2x" ng-show="emodules" ng-click="emodules=false;"></a>
+						<div style="float:right;">
+							<a ng-hide="emodules" class="btn btn-sm grey-cascade" href="javascript:;">Edit <i class="fa fa-edit"></i></a>
+							<a class="btn btn-sm red" ng-click="deleteSchoolView(schools[checkedIndexs-1].id, schools[checkedIndexs-1].name)">Delete <i class="fa fa-times"></i></a>
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
+					<div class="col-md-12">
+						<div class="portlet-body well clearfix">
+							<div class="col-md-4">
+								<div class="row">
+									<div class="profile-userpic">
+										<img style="width:100%;" alt="" class="img-responsive" src="assets/admin/layout2/img/no-image.png">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-8">
+								<div class="portlet-body">
+									<div class="col-sm-12 static-info">
+										Vehicle ID: {{vehicles[checkedIndexs-1].vehicle_id}}
+									</div>
+									<div class="col-sm-12 static-info">
+										Vehicle Number: {{vehicles[checkedIndexs-1].vehicle_no}}
+									</div>
+									<div class="col-sm-12 static-info">
+										Purchase Date: {{vehicles[checkedIndexs-1].pur_date}}
+									</div>
+									<div class="col-sm-12 static-info">
+										School: {{vehicles[checkedIndexs-1].school_name}}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix">&nbsp;</div>
+						<hr/>
+					</div>
+					
+					<div class="clearfix">&nbsp;</div>
+					<div class="overlay_div">
+						<div class="col-md-12">
+							<div class="portlet-body well clearfix">
+								<div class="row static-info">
+									<div class="col-md-5">Route:</div>
+									<div class="col-md-7">{{vehicles[checkedIndexs-1].route}}</div>
+								</div>
+								<div class="row static-info">
+									<div class="col-md-5">Driver:</div>
+									<div class="col-md-7">{{vehicles[checkedIndexs-1].driver}}</div>
+								</div>
+								<div class="row static-info">
+									<div class="col-md-5">Conductor:</div>
+									<div class="col-md-7">{{vehicles[checkedIndexs-1].coordinator}}</div>
+								</div>
+							</div>
+							<hr/>
+						</div>
+						<div class="clearfix">&nbsp;</div>
+						<div class="col-md-12">
+							<div class="portlet-body well clearfix">
+								<div class="row static-info">
+									<div class="col-md-12">
+										{{vehicles[checkedIndexs-1].add_notes}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+					
+				</div>
+			</div>
+			
+			<!-- Drivers -->
+			<div class="clearfix" ng-if="checkedIndexs.length ==1 && driverst">
+			<div class="portlet light bordered">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="pull-right">
+							<a class="btn btn-sm grey-cascade" href="javascript:;">Edit <i class="fa fa-edit"></i></a>
+							<a class="btn btn-sm red" ng-click="deleteSchoolView(schools[checkedIndexs-1].id, schools[checkedIndexs-1].name)">Delete <i class="fa fa-times"></i></a>
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
+					<div class="col-md-12">
+						<div class="portlet-body well clearfix">
+							<div class="col-md-4">
+								<div class="row">
+									<div class="profile-userpic">
+										<img style="width:100%;" alt="" class="img-responsive" src="assets/admin/layout2/img/no-image.png">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-8">
+								<div class="portlet-body">
+									<div class="col-sm-12 static-info">
+										{{drivers[checkedIndexs-1].name}}
+									</div>
+									<div class="col-sm-12 static-info">
+										Employee ID: {{drivers[checkedIndexs-1].emp_id}}
+									</div>
+									<div class="col-sm-12 static-info">
+										Route: {{drivers[checkedIndexs-1].route}}
+									</div>
+									<div class="col-sm-12 static-info">
+										Purchase Date: {{drivers[checkedIndexs-1].school_name}}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix">&nbsp;</div>
+						<hr/>
+					</div>
+					
+					<div class="clearfix">&nbsp;</div>
+					<div class="overlay_div">
+						<div class="col-md-12">
+							<div class="portlet-body well clearfix">
+								<div class="row static-info">
+									<div class="col-md-5">Phone Number:</div>
+									<div class="col-md-7">{{drivers[checkedIndexs-1].name}}</div>
+								</div>
+								<div class="row static-info">
+									<div class="col-md-5">Address:</div>
+									<div class="col-md-7">{{drivers[checkedIndexs-1].address}}</div>
+								</div>
+								<div class="row static-info">
+									<div class="col-md-5">Email Address:</div>
+									<div class="col-md-7">{{drivers[checkedIndexs-1].email}}</div>
+								</div>
+							</div>
+							<hr/>
+						</div>
+						<div class="clearfix">&nbsp;</div>
+						<div class="col-md-12">
+							<div class="portlet-body well clearfix">
+								<div class="row static-info">
+									<div class="col-md-12">
+										{{drivers[checkedIndexs-1].add_notes}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+					
+				</div>
+			</div>
+			
+			<!-- Coordinators -->
+			<div class="clearfix" ng-if="checkedIndexs.length ==1 && coordinatorst">
+			<div class="portlet light bordered">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="pull-right">
+							<a class="btn btn-sm grey-cascade" href="javascript:;">Edit <i class="fa fa-edit"></i></a>
+							<a class="btn btn-sm red" ng-click="deleteSchoolView(schools[checkedIndexs-1].id, schools[checkedIndexs-1].name)">Delete <i class="fa fa-times"></i></a>
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
+					<div class="col-md-12">
+						<div class="portlet-body well clearfix">
+							<div class="col-md-4">
+								<div class="row">
+									<div class="profile-userpic">
+										<img style="width:100%;" alt="" class="img-responsive" src="assets/admin/layout2/img/no-image.png">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-8">
+								<div class="portlet-body">
+									<div class="col-sm-12 static-info">
+										{{coordinators[checkedIndexs-1].name}}
+									</div>
+									<div class="col-sm-12 static-info">
+										Employee ID: {{coordinators[checkedIndexs-1].emp_id}}
+									</div>
+									<div class="col-sm-12 static-info">
+										Route: {{coordinators[checkedIndexs-1].route}}
+									</div>
+									<div class="col-sm-12 static-info">
+										Purchase Date: {{coordinators[checkedIndexs-1].school_name}}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix">&nbsp;</div>
+						<hr/>
+					</div>
+					
+					<div class="clearfix">&nbsp;</div>
+					<div class="overlay_div">
+						<div class="col-md-12">
+							<div class="portlet-body well clearfix">
+								<div class="row static-info">
+									<div class="col-md-5">Phone Number:</div>
+									<div class="col-md-7">{{coordinators[checkedIndexs-1].name}}</div>
+								</div>
+								<div class="row static-info">
+									<div class="col-md-5">Address:</div>
+									<div class="col-md-7">{{coordinators[checkedIndexs-1].address}}</div>
+								</div>
+								<div class="row static-info">
+									<div class="col-md-5">Email Address:</div>
+									<div class="col-md-7">{{coordinators[checkedIndexs-1].email}}</div>
+								</div>
+							</div>
+							<hr/>
+						</div>
+						<div class="clearfix">&nbsp;</div>
+						<div class="col-md-12">
+							<div class="portlet-body well clearfix">
+								<div class="row static-info">
+									<div class="col-md-12">
+										{{coordinators[checkedIndexs-1].add_notes}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+					
+				</div>
+			</div>
+	</div>
+<!-- END MAIN CONTENT -->

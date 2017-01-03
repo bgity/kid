@@ -1,0 +1,43 @@
+<form class="inbox-compose form-horizontal" name="frmcompose">
+	<div class="inbox-compose-btn">
+		<button class="btn blue"><i class="fa fa-check"></i>Send</button>
+		<button type="button" class="btn inbox-discard-btn" ng-click="selectedTemplate.path = 'views/communication/inbox.html'; $parent.selectedTab = 'inbox';" ng-hide="selectedTab == 'alerts'">Discard</button>
+		<button type="button" class="btn inbox-discard-btn" ng-click="selectedTemplate.path = 'views/communication/alerts.html';" ng-show="selectedTab == 'alerts'">Discard</button>
+		<button type="button" class="btn" ng-click="selectedTemplate.path = 'views/communication/draft.html';" ng-if="selectedTab != 'alerts'">Draft</button>
+	</div>
+	<div class="inbox-form-group mail-to">
+		<label class="control-label">To:</label>
+		<div class="controls controls-to">
+			<input type="email" class="form-control" name="to" ng-model="frm.to" required />
+		</div>
+	</div>
+	<div class="inbox-form-group" ng-if="selectedTab != 'alerts'">
+		<label class="control-label">Subject:</label>
+		<div class="controls">
+			<input type="text" class="form-control" name="subject" ng-model="frm.subject" required />
+		</div>
+	</div>
+	<div class="inbox-form-group" ng-if="selectedTab == 'alerts'">
+		<label class="control-label">Alert Title:</label>
+		<div class="controls">
+			<input type="text" class="form-control" name="title" ng-model="frm.title" required />
+		</div>
+	</div>
+	<div class="inbox-form-group">
+		<textarea class="inbox-editor inbox-wysihtml5 form-control" name="message" rows="12" ng-model="frm.message" required></textarea>
+	</div>
+	<div class="inbox-compose-attachment" ng-hide="selectedTab == 'alerts'">
+		<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+		<span class="btn green fileinput-button">
+		<i class="fa fa-plus"></i>
+		<span>
+		Add files... </span>
+		<input type="file" name="files[]" multiple>
+		</span>
+		<!-- The table listing the files available for upload/download -->
+		<table role="presentation" class="table table-striped margin-top-10">
+		<tbody class="files">
+		</tbody>
+		</table>
+	</div>
+</form>

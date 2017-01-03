@@ -1,0 +1,117 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+	Communication Management
+</h3>
+<div class="page-bar">
+	<ul class="page-breadcrumb">
+		<li>
+			<i class="fa fa-home"></i>
+			<a href="#/dashboard.html">Home</a>
+			<i class="fa fa-angle-right"></i>
+		</li>
+		<li>
+			<a href="#/communication_management.html">Communication Management</a>
+		</li>
+	</ul>
+	<div class="page-toolbar">
+		<div class="btn-group pull-right">
+			<button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+			Actions <i class="fa fa-angle-down"></i>
+			</button>
+			<ul class="dropdown-menu pull-right" role="menu">
+				<li ng-hide="selectedTab == 'alerts' || selectedTab == 'groups'|| selectedTab == 'moderation'|| selectedTab == 'feedback'">
+					<a ng-click="selectedTemplate.path = 'views/communication/compose.html'">
+					<i class="fa fa-envelope-o"></i> New Message </a>
+				</li>
+				<li ng-show="selectedTab == 'alerts'">
+					<a ng-click="selectedTemplate.path = 'views/communication/compose.html'">
+					<i class="fa fa-bell-o"></i> New Alert </a>
+				</li>
+				<li ng-show="selectedTab == 'groups'">
+					<a ng-click="selectedInnerTemplate.path = 'views/communication/addgroup.html'">
+					<i class="fa fa-users"></i> New Group </a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- END PAGE HEADER-->
+<div class="portlet light">
+	<div class="portlet-body">
+		<div class="row inbox">
+			<div class="col-md-2">
+				<div class="portlet box blue-madison">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-envelope"></i>
+							Message Center
+						</div>
+					</div>
+					<div class="portlet-body">
+						<ul class="inbox-nav margin-bottom-10" ng-init="selectedTab = 'inbox'">
+							<li class="inbox" ng-class="{'active':selectedTab === 'inbox'}">
+								<a ng-click="selectedTemplate.path = 'views/communication/inbox.html'; selectedTab = 'inbox';checkedIndexs=[];" class="btn" data-title="Inbox">
+								Inbox(1) </a>
+								<b></b>
+							</li>
+							<li class="sent" ng-class="{'active':selectedTab === 'sent'}">
+								<a class="btn" ng-click="selectedTemplate.path = 'views/communication/sent.html';selectedTab = 'sent';checkedIndexs=[];" data-title="Sent">
+								Sent </a>
+								<b></b>
+							</li>
+							<li class="draft" ng-class="{'active':selectedTab === 'draft'}">
+								<a class="btn" ng-click="selectedTemplate.path = 'views/communication/draft.html'; selectedTab = 'draft';checkedIndexs=[];" data-title="Draft">
+								Draft </a>
+								<b></b>
+							</li>
+							<li class="trash" ng-class="{'active':selectedTab === 'trash'}">
+								<a class="btn" ng-click="selectedTemplate.path = 'views/communication/trash.html'; selectedTab = 'trash';checkedIndexs=[];" data-title="Trash">
+								Trash </a>
+								<b></b>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="portlet box blue-madison">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-bell-o "></i>
+							<a ng-click="selectedTemplate.path = 'views/communication/alerts.html';selectedTab = 'alerts'; checkedIndexs=[];">Alerts and Notifications</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="portlet box blue-madison">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-comments-o"></i>
+							<a ng-click="selectedTemplate.path = 'views/communication/feedback.html';selectedTab = 'feedback'; checkedIndexs=[];">Feedback</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="portlet box blue-madison">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-eye-slash"></i>
+							<a ng-click="selectedTemplate.path = 'views/communication/moderation.html';selectedTab = 'moderation'; checkedIndexs=[];">Moderation</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="portlet box blue-madison">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-users"></i>
+							<a ng-click="selectedTemplate.path = 'views/communication/groups.html';selectedTab = 'groups'; checkedIndexs=[];">Groups</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-10">
+				<div ng-include="selectedTemplate.path"></div>
+			</div>
+		</div>
+	</div>
+</div>

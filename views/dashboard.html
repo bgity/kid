@@ -1,0 +1,183 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+	Dashboard
+</h3>
+<div class="page-bar">
+	<ul class="page-breadcrumb">
+		<li>
+			<i class="fa fa-home"></i>
+			<a href="#">Home</a>
+			<i class="fa fa-angle-right"></i>
+		</li>
+		<li>
+			<a href="#">Dashboard</a>
+		</li>
+	</ul>
+	<div class="page-toolbar">
+		<div class="btn-group pull-right">
+			<button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" dropdown-menu-hover data-delay="1000" data-close-others="true">
+			Actions <i class="fa fa-angle-down"></i>
+			</button>
+			<ul class="dropdown-menu pull-right" role="menu">
+				<li>
+					<a href="#">
+					<i class="icon-user"></i> New User </a>
+				</li>
+				<li>
+					<a href="#">
+					<i class="icon-present"></i> New Event <span class="badge badge-success">4</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+					<i class="icon-basket"></i> New order </a>
+				</li>
+				<li class="divider">
+				</li>
+				<li>
+					<a href="#">
+					<i class="icon-flag"></i> Pending Orders <span class="badge badge-danger">4</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+					<i class="icon-users"></i> Pending Users <span class="badge badge-warning">12</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div ng-controller="DashboardController">
+	<div class="note note-success note-bordered">
+		<h3>{{date | date:'EEEE, dd MMMM, yyyy'}} <span style="float:right;">{{date | date:'H:mm:ss'}}</span></h3>
+		
+	</div>
+	<!-- BEGIN DASHBOARD STATS -->
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat blue-madison">
+				<div class="visual">
+					<i class="fa fa-building"></i>
+				</div>
+				<div class="details">
+					<div class="desc">
+						School Management
+					</div>
+				</div>
+				<a class="more" href="#/school_management.html">
+				View more <i class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat red-intense">
+				<div class="visual">
+					<i class="fa fa-users"></i>
+				</div>
+				<div class="details">
+					<div class="desc">
+						User Management
+					</div>
+				</div>
+				<a class="more" href="#/user_management.html">
+				View more <i class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat green-haze">
+				<div class="visual">
+					<i class="fa fa-money"></i>
+				</div>
+				<div class="details">
+					<div class="desc">
+						Fees Management
+					</div>
+				</div>
+				<a class="more" href="#/fees_management.html">
+				View more <i class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat purple-plum">
+				<div class="visual">
+					<i class="fa fa-bus"></i>
+				</div>
+				<div class="details">
+					<div class="desc">
+						Transport Management
+					</div>
+				</div>
+				<a class="more" href="#/transport_management.html">
+				View more <i class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+	<!-- END DASHBOARD STATS -->
+	<div class="clearfix">&nbsp;</div>
+	<div class="clearfix">&nbsp;</div>
+	<div class="row text-center">
+		<div class="col-md-6">
+            <div class="row">
+                <div class="col-xs-3">
+					<a href="#/student_management.html">
+					<i class="fa fa-graduation-cap icon-fa-5x"></i>
+					<div class="title">Student Management</div>
+					</a>
+                </div>
+                <div class="col-xs-3">
+					<a href="#/parent_management.html">
+					<i class="fa fa-user-secret icon-fa-5x"></i>
+					<div class="title">Parent Management</div>
+					</a>
+                </div>
+                <div class="col-xs-3">
+					<a href="#/attendance_management.html">
+					<i class="fa fa-check-square icon-fa-5x"></i>
+					<div class="title">Attendance Management</div>
+					</a>
+                </div>
+                <div class="col-xs-3">
+					<a href="#/calendar_management.html">
+					<i class="fa fa-calendar icon-fa-5x"></i>
+					<div class="title">Calendar Management</div>
+					</a>
+                </div>
+			</div>
+		</div> 
+		<div class="col-md-6">
+            <div class="row">
+                <div class="col-xs-3">
+					<a href="#/learning_centre.html">
+					<i class="fa fa-book icon-fa-5x"></i>
+					<div class="title">Learning Centre</div>
+					</a>
+                </div>
+                <div class="col-xs-3">
+					<a href="#/media_centre.html">
+					<i class="fa fa-youtube-play icon-fa-5x"></i>
+					<div class="title">Media Centre</div>
+					</a>
+                </div>
+                <div class="col-xs-3">
+					<a href="#/communication_management.html">
+					<i class="fa fa-phone icon-fa-5x"></i>
+					<div class="title">Messenger</div>
+					</a>
+                </div>
+                <div class="col-xs-3">
+					<a href="#/progress_report.html">
+					<i class="fa fa-bar-chart-o icon-fa-5x"></i>
+					<div class="title">Progress Report</div>
+					</a>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END MAIN CONTENT -->

@@ -1,0 +1,139 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+	Attendance Management
+</h3>
+<div class="page-bar">
+	<ul class="page-breadcrumb">
+		<li>
+			<i class="fa fa-home"></i>
+			<a href="#/dashboard.html">Home</a>
+			<i class="fa fa-angle-right"></i>
+		</li>
+		<li>
+			<a href="#/parent_management.html">Attendance Management</a>
+		</li>
+	</ul>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+	<div class="col-md-9 col-sm-12">
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet box blue-madison">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-check-square"></i>Attendance
+				</div>
+				<div class="tools">
+				</div>
+			</div>
+			
+			<div class="portlet-body flip-scroll">
+				<div class="row">
+					<div class="col-md-8 col-sm-12">
+						<label>School:
+							<select class="form-control input-small input-inline" ng-model="filterSchool.school" ng-options="school.name for school in filterOptions[0].schools"></select>
+						</label>
+						<label>Grade:
+							<select class="form-control input-small input-inline" ng-model="filterGrade.grade" ng-options="grade.name for grade in filterOptions[1].grades"></select>
+						</label>
+						<label>Division:
+							<select class="form-control input-small input-inline" ng-model="filterDivision.division" ng-options="division.name for division in filterOptions[2].divisions"></select>
+						</label>
+					</div>
+					<div class="col-md-4 col-sm-12">
+						<div class="dataTables_filter pull-right">
+							<input type="search" class="form-control input-small input-inline input-circle" placeholder="Search" ng-model="search.name">
+						</div>
+					</div>
+					
+				</div>
+				<form class="form-horizontal" valid-submit="addattendance()" name="frmattend" novalidate>
+				<table class="table table-striped table-condensed flip-content">
+					<thead class="flip-content">
+						<tr>
+							<th>Photo</th>
+							<th>Student Name</th>
+							<th class="text-center">Present</th>
+							<th class="text-center">Absent</th>
+							<th class="text-center">Late</th>
+							<th class="text-center">Excused</th>
+							<th class="text-center" ng-if="!addAttend && !editAttend">Total</th>
+							<th class="text-center" ng-if="addAttend || editAttend">Comments</th>
+							<th  ng-if="!addAttend && !editAttend">&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="student in filtered = (students | filter:search | filter:customSchoolFilter | filter:customGradeFilter | filter:customDivisionFilter)">
+							<td class="text-center">
+								<div class="profile-userpic">
+									<img style="width:25%;" alt="" class="img-responsive" src="assets/admin/layout2/img/avatar.png">
+								</div>
+							</td>
+							<td>
+								{{student.name}}
+							</td>
+							<td class="text-center att_present">
+								<span ng-if="addAttend || editAttend"><input type="radio" ng-model="frm.attendance[student.id]" value="present" name="attendance{{student.id}}" /></span>
+								<span ng-if="!addAttend && !editAttend">{{student.present}}</span>
+							</td>
+							<td class="text-center att_absent">
+								<span ng-if="addAttend || editAttend"><input type="radio" ng-model="frm.attendance[student.id]" value="absent" name="attendance{{student.id}}" /></span>
+								<span ng-if="!addAttend && !editAttend">{{student.absent}}</span>
+							</td>
+							<td class="text-center att_late">
+								<span ng-if="addAttend || editAttend"><input type="radio" ng-model="frm.attendance[student.id]" value="late" name="attendance{{student.id}}" /></span>
+								<span ng-if="!addAttend && !editAttend">{{student.late}}</span>
+							</td>
+							<td class="text-center att_excused">
+								<span ng-if="addAttend || editAttend"><input type="radio" ng-model="frm.attendance[student.id]" value="excused" name="attendance{{student.id}}" /></span>
+								<span ng-if="!addAttend && !editAttend">{{student.excused}}</span>
+							</td>
+							<td class="text-center"> 
+								<div ng-if="addAttend || editAttend" class="form-group" style="padding:5px;">
+									<textarea class="form-control" ng-model="frm.comments"></textarea>
+								</div>
+								<span ng-if="!addAttend && !editAttend">{{student.present + student.absent + student.late + student.excused}}</span>
+							</td>
+							<td ng-if="!addAttend && !editAttend">
+								<i class="fa fa-eye"></i>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</form>
+			</div>
+		</div>
+		<!-- END PORTLET-->
+	</div>
+	
+	<div class="col-md-3">
+		<div class="col-sm-12 attdate">
+			<div style="display:inline-block;">
+			  <datepicker ng-model="dt" min-date="minDate" max-date="maxDate" show-weeks="false" ng-click="selectDate(date)" ></datepicker>
+			</div>
+		</div>
+		<div class="clearfix" ng-if="addAttend || editAttend">&nbsp;</div>
+		<div class="col-sm-12">
+			<div class="text-center">
+				<button ng-show="addAttend" class="btn btn-sm green" ng-click="addAttend=false;editAttend=false;" >Submit</button>
+				<button ng-show="editAttend" class="btn btn-sm green" ng-click="editAttend=false;addAttend=false;" >Save Changes</button>
+			</div>
+		</div>
+		<div class="clearfix">&nbsp;</div>
+		<div class="col-sm-12">
+			<div class="well static-info">
+				<h4><b>Summary</b></h4>
+				<div>
+					<div class="static-info">Total: <span class="badge">{{filtered.length}}</span></div>
+					<div class="static-info">Present: <span class="badge badge-success">{{filtered | sumOfValue:'present'}}</span></div>
+					<div class="static-info">Absent: <span class="badge badge-danger">{{filtered | sumOfValue:'absent'}}</span></div>
+					<div class="static-info">Late: <span class="badge badge-warning">{{filtered | sumOfValue:'late'}}</span></div>
+					<div class="static-info">Excused: <span class="badge badge-primary">{{filtered | sumOfValue:'excused'}}</span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+<!-- END MAIN CONTENT -->

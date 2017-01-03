@@ -1,0 +1,127 @@
+<div class="row addgroup">
+	<form class="form-horizontal" valid-submit="processadd()" name="frmgroup" novalidate>
+	<div class="col-md-12">
+		<div class="portlet-body">
+			<div class="col-md-6">
+				<div class="row">
+					<div class="profile-userpic">
+						<img alt="" class="img-responsive" src="assets/admin/layout2/img/avatar.png">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="portlet-body">
+					<div class="form-group">
+						<input type="text" class="form-control input-inline input-small" placeholder="Group Name" ng-model="frm.name" name="name" required id="name" />
+						<div class="error_msg" ng-messages="frmgroup.name.$error" ng-if="frmgroup.$submitted">
+							<p ng-message="required">Group name is required.</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control input-inline input-small" placeholder="Subject" ng-model="frm.subject" name="subject" required id="subject" />
+						<div class="error_msg" ng-messages="frmgroup.subject.$error" ng-if="frmgroup.$submitted">
+							<p ng-message="required">Subject is required.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="clearfix">&nbsp;</div>
+	<div class="col-md-12">
+		<div class="portlet-body flip-scroll">
+			<table class="table table-bordered table-striped table-condensed flip-content">
+				<thead>
+					<tr>
+						<th>
+							<input type="checkbox" class="regular-checkbox" ng-model="$parent.selectedMemAll" ng-change="checkMemAll()" />
+						</th>
+						<th>
+							First Name
+						</th>
+						<th>
+							Last Name
+						</th>
+						<th>
+							Role
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="4">
+							<div class="text-center">
+								<button class="btn green btn-sm" type="button" ng-click="open()">Add a New Member</button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="clearfix">&nbsp;</div>
+	<div class="row">
+		<div class="text-center">
+			<button class="btn btn-sm green" href="javascript:;">Save <i class="fa fa-check"></i></button>
+		</div>
+	</div>
+	</form>
+</div>
+
+<script type="text/ng-template" id="myModalContent.html">
+	<div class="modal-header">
+		<h3 class="modal-title">Add members</h3>
+	</div>
+	<div class="modal-body">
+		<div class="portlet-body flip-scroll">
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<div class="dataTables_filter">
+						<input type="search" class="form-control input-circle input-medium" placeholder="Search" ng-model="search.firstname">
+					</div>
+				</div>
+				
+			</div>
+			<div class="clearfix">&nbsp;</div>
+			<table class="table table-bordered table-striped table-condensed flip-content">
+				<thead>
+					<tr>
+						<th>
+							<input type="checkbox" class="regular-checkbox" ng-model="$parent.selectedAll" ng-change="checkAll('users')" />
+						</th>
+						<th>
+							First Name
+						</th>
+						<th>
+							Last Name
+						</th>
+						<th>
+							User Role
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="user in filtered = (users | filter:search)">
+						<td>
+							<input type="checkbox" id="{{ user.id}}" class="regular-checkbox" ng-model="user.checked" ng-click="checkedUser(user.id)" /><label for="{{ user.id}}">
+						</td>
+						<td>
+						{{user.firstname}}
+						</td>
+						<td>
+						{{user.lastname}}
+						</td>
+						<td>
+						{{user.role}}
+						</td>
+		
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="modal-footer modal-text-center">
+		<button class="btn btn-primary green" ng-click="ok()">Add Member(s)</button>
+	</div>
+</script>

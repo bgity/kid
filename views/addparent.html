@@ -1,0 +1,250 @@
+<div class="clearfix rightside">
+	<div class="portlet light bordered">
+		<div class="row">
+			<form class="form-horizontal" valid-submit="processadd()" name="frmparent" novalidate>
+			<div class="col-md-12">
+				<div class="portlet-body">
+					<div class="col-md-3">
+						<div class="row">
+							<div class="profile-userpic">
+								<img style="width:100%;" alt="" class="img-responsive" src="assets/admin/layout2/img/avatar.png">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="portlet-body">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<input type="text" class="form-control input-inline input-small" placeholder="First Name" ng-model="frm.firstname" name="firstname" required id="firstname" />
+									<div class="error_msg" ng-messages="frmparent.firstname.$error" ng-if="frmparent.$submitted">
+										<p ng-message="required">First name is required.</p>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-sm-6">
+								<div class="form-group">
+									<input type="text" class="form-control input-inline input-small" placeholder="Last Name" ng-model="frm.lastname" name="lastname" required id="lastname" />
+									<div class="error_msg" ng-messages="frmparent.lastname.$error" ng-if="frmparent.$submitted">
+										<p ng-message="required">Last name is required.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="portlet-body">
+								<div class="form-group">
+									<input type="text" class="form-control input-inline input-small" placeholder="Contact Number" ng-model="frm.contact_no" name="contact_no" required id="contact_no" />
+									<div class="error_msg" ng-messages="frmparent.contact_no.$error" ng-if="frmparent.$submitted">
+										<p ng-message="required">Contact Number is required.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="portlet-body">
+								<div class="form-group">
+									Parent ID: PA{{getRandomSpan}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+				<hr/>
+			</div>
+			
+			<div class="clearfix">&nbsp;</div>
+			<div class="col-md-12">
+				<tabset justified="true" type="pills">
+					<tab heading="Bio">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-sm-12">
+									<div class="clearfix">&nbsp;</div>
+									<div class="portlet-body well">
+										<div class="form-group">
+											<div class="col-md-5">Gender:</div>
+											<div class="col-md-7">
+												<div class="radio-list">
+													<label class="radio-inline">
+													<div class="radio-sp"><input type="radio" value="male" ng-model="frm.gender" name="gender" ng-required="!gender"></div>
+													Male </label>
+													<label class="radio-inline">
+													<div class="radio-sp"><input type="radio" value="female" ng-model="frm.gender" name="gender" ng-required="!gender"></div>
+													Female </label>
+												</div>
+												<div class="error_msg" ng-messages="frmparent.gender.$error" ng-if="frmparent.$submitted">
+													<p ng-message="required">Gender is required.</p>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-5">Date of birth:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<input type="text" class="form-control input-inline input-small" ui-mask="99/99/9999" ng-model="frm.dob" name="dob" required id="dob" /> (dd/mm/yyyy)
+													<div class="error_msg" ng-messages="frmparent.dob.$error" ng-if="frmparent.$submitted">
+														<p ng-message="required">Date of birth is required.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-5">Blood Group:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<input type="text" class="form-control input-inline input-xsmall" placeholder="" ng-model="frm.blood_group" name="blood_group" required id="blood_group" />
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</tab>
+					<tab heading="Contact">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-sm-12">
+									<div class="clearfix">&nbsp;</div>
+									<div class="portlet-body well">
+										<div class="row static-info">
+											<div class="col-md-5">Home Address:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<textarea rows="1" class="form-control" ng-model="frm.home_address"></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="row static-info">
+											<div class="col-md-5">Home Phone Number:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<input type="text" class="form-control input-inline input-small" placeholder="" ng-model="frm.home_phone" name="home_phone" required id="home_phone" >
+													<div class="error_msg" ng-messages="frmparent.phone.$error" ng-if="frmparent.$submitted">
+														<p ng-message="required">Home Phone Number is required.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row static-info">
+											<div class="col-md-5">Work Address:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<textarea rows="1" class="form-control" ng-model="frm.work_address"></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="row static-info">
+											<div class="col-md-5">Alternate Phone Number:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<input type="text" class="form-control input-inline input-small" placeholder="" ng-model="frm.alt_phone" name="alt_phone" required id="alt_phone" />
+												</div>
+											</div>
+										</div>
+										<div class="row static-info">
+											<div class="col-md-5">Email Address:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<input type="text" class="form-control input-inline input_full" placeholder="Email Address" ng-model="frm.email" name="email" required id="email">
+													<div class="error_msg" ng-messages="frmparent.email.$error" ng-if="frmparent.$submitted">
+														<p ng-message="required">Email Address is required.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</tab>
+					
+					<tab heading="Links">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-sm-12">
+								<div class="scroller" style="height: 300px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+									<div class="clearfix">&nbsp;</div>
+									<div class="portlet-body well">
+										<table class="table table-bordered table-striped table-condensed flip-content">
+											<thead class="flip-content">
+												<th>Parent ID</th>
+												<th>Parent Name</th>
+												<th>Relation</th>
+												<th>&nbsp;</th>
+											</thead>
+											<tbody>
+												<tr ng-repeat="parent in frm.relation">
+													<td>
+														<input type="text" class="form-control input-inline input-xsmall" placeholder="" ng-model="frm.parent_id" name="parent_id" id="parent_id" />
+													</td>
+													<td>
+														<input type="text" class="form-control input-inline input-xsmall" placeholder="" ng-model="frm.parent_name" name="parent_name" id="parent_name" />
+													</td>
+													<td>
+														<input type="text" class="form-control input-inline input-xsmall" placeholder="" ng-model="frm.parent_relation" name="parent_relation" id="parent_relation" />
+													</td>
+													<td>
+														<a type="button" class="btn btn-xs red" ng-click="frm.relation.splice(i, 1);">Del<i class="fa fa-times"></i></a>
+													</td>
+												</tr>
+												<tr>
+													<td colspan="4"><a class="btn btn-xs green" ng-click="addParents(frm)">Add<i class="fa fa-plus"></i></a></td>
+												</tr>
+											</tbody>
+										</table>													
+										<hr/>
+										<table class="table table-bordered table-striped table-condensed flip-content">
+											<thead class="flip-content">
+												<th>Student ID</th>
+												<th>Student Name</th>
+												<th>Grade</th>
+												<th>Division</th>
+												<th>&nbsp;</th>
+											</thead>
+											<tbody>
+												<tr ng-repeat="student in frm.students">
+													<td>
+														<input type="text" class="form-control input-inline input-xsmall" placeholder="" ng-model="frm.student_id" name="student_id" id="student_id" />
+													</td>
+													<td>
+														<input type="text" class="form-control input-inline input-xsmall" placeholder="" ng-model="frm.student_name" name="student_name" id="student_name" />
+													</td>
+													<td>
+														<select ng-model="frm.stu_grade" class="form-control input-xsmall input-inline" ng-options="stu_grade.id as stu_grade.name for stu_grade in grades"></select>
+													</td>
+													<td>
+														<select ng-model="frm.sib_division" class="form-control input-xsmall input-inline" ng-options="sib_division.id as sib_division.name for sib_division in divisions"></select>
+													</td>
+													<td>
+														<a type="button" class="btn btn-xs red" ng-click="frm.students.splice(i, 1);"> <i class="fa fa-times"></i></a>
+													</td>
+												</tr>
+												<tr>
+													<td colspan="5"><a class="btn btn-xs green" ng-click="addStudents(frm)">Add<i class="fa fa-plus"></i></a></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								</div>
+							</div>
+						</div>
+					</tab>
+				</tabset>
+				<div class="clearfix">&nbsp;</div>
+				<div class="row">
+					<div class="text-center">
+						<button class="btn btn-sm green" href="javascript:;">Save <i class="fa fa-check"></i></button>
+					</div>
+				</div>
+			</div>
+		</form>
+		</div>
+			
+		</div>
+</div>

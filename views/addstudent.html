@@ -1,0 +1,573 @@
+<div class="clearfix addstudent_div">
+	<div class="portlet light bordered">
+		<div class="row">
+			<form class="form-horizontal" name="frmstudent" novalidate>
+			<div class="clearfix">&nbsp;</div>
+			<div class="col-md-12">
+				<div class="portlet-body">
+					<div class="col-md-3">
+						<div class="row">
+							<div class="profile-userpic">
+								<img style="width:100%;" alt="" class="img-responsive" src="assets/admin/layout2/img/avatar.png">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="portlet-body">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<input type="text" class="form-control input-inline input-small" placeholder="First Name" ng-model="frm.firstname" name="firstname" required id="firstname" />
+									<div class="error_msg" ng-messages="frmstudent.firstname.$error" ng-if="frmstudent.$submitted">
+										<p ng-message="required">First name is required.</p>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-sm-6">
+								<div class="form-group">
+									<input type="text" class="form-control input-inline input-small" placeholder="Last Name" ng-model="frm.lastname" name="lastname" required id="lastname" />
+									<div class="error_msg" ng-messages="frmstudent.lastname.$error" ng-if="frmstudent.$submitted">
+										<p ng-message="required">Last name is required.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="portlet-body">
+								<div class="form-group">
+									<input type="text" class="form-control input-inline input-small" placeholder="Preferred Name" ng-model="frm.pref_name" name="pref_name" required id="pref_name" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="portlet-body">
+								<div class="form-group">
+									Student ID: STU{{getRandomSpan}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+				<hr/>
+			</div>
+			
+			<div class="clearfix">&nbsp;</div>
+			<div class="col-md-12">
+				<tabset justified="true" type="pills">
+					<tab heading="Bio">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-sm-12">
+									<div class="clearfix">&nbsp;</div>
+									<div class="portlet-body well">
+										<div class="form-group">
+												<div class="col-md-5">Gender:</div>
+												<div class="col-md-7">
+													<div class="radio-list">
+														<label class="radio-inline">
+														<div class="radio-sp"><input type="radio" value="male" ng-model="frm.gender" name="gender" ng-required="!gender"></div>
+														Male </label>
+														<label class="radio-inline">
+														<div class="radio-sp"><input type="radio" value="female" ng-model="frm.gender" name="gender" ng-required="!gender"></div>
+														Female </label>
+													</div>
+													<div class="error_msg" ng-messages="frmstudent.gender.$error" ng-if="frmstudent.$submitted">
+														<p ng-message="required">Gender is required.</p>
+													</div>
+												</div>
+											</div>
+										
+										<div class="row">
+											<div class="col-md-5">Birth Date:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<input type="text" class="form-control input-inline input-small" ui-mask="99/99/9999" ng-model="frm.dob" name="dob" required id="dob" /> (dd/mm/yyyy)
+													<div class="error_msg" ng-messages="frmstudent.dob.$error" ng-if="frmstudent.$submitted">
+														<p ng-message="required">Birth Date is required.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-5">Estd Graduation Date:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" ng-model="estd_grad_date" name="estd_grad_date" required/>
+													<div class="error_msg" ng-messages="frmstudent.estd_grad_date.$error" ng-if="frmstudent.$submitted">
+														<p ng-message="required">Estd Graduation Date is required.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-5">Grade:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<select ng-model="frm.grade" class="form-control input-small input-inline" ng-options="grade.id as grade.name for grade in grades" required name="grade">
+														<option value='' disabled selected style='display:none;'>Select Grade</option>
+													</select>
+													<div class="error_msg" ng-messages="frmstudent.grade.$error" ng-if="frmstudent.$submitted">
+														<p ng-message="required">Grade is required.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-5">Division:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<select ng-model="frm.division" class="form-control input-small input-inline" ng-options="division.id as division.name for division in divisions" required name="division">
+														<option value='' disabled selected style='display:none;'>Select Division</option>
+													</select>
+													<div class="error_msg" ng-messages="frmstudent.division.$error" ng-if="frmstudent.$submitted">
+														<p ng-message="required">Division is required.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</tab>
+					<tab heading="Contact">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-sm-12">
+									<div class="clearfix">&nbsp;</div>
+									<div class="scroller" style="height: 300px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+									<div class="portlet-body well">
+										<div class="row">
+											<div class="col-md-5">Phone Number:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<input type="text" class="form-control input-inline input-small" placeholder="" ng-model="frm.phone" name="phone" required id="phone" >
+													<div class="error_msg" ng-messages="frmstudent.phone.$error" ng-if="frmstudent.$submitted">
+														<p ng-message="required">Phone Number is required.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-5">Home Address:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<textarea rows="1" class="form-control" ng-model="frm.home_address"></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-5">Emergency Contact Name:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<input type="text" class="form-control input-inline input-small" placeholder="" ng-model="frm.econtact_name" name="econtact_name" required id="econtact_name" >
+													<div class="error_msg" ng-messages="frmstudent.econtact_name.$error" ng-if="frmstudent.$submitted">
+														<p ng-message="required">Emergency Conact Name is required.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-5">Emergency Contact Number:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<input type="text" class="form-control input-inline input-small" placeholder="" ng-model="frm.econtact_no" name="econtact_no" required id="econtact_no" >
+													<div class="error_msg" ng-messages="frmstudent.econtact_no.$error" ng-if="frmstudent.$submitted">
+														<p ng-message="required">Emergency Conact Number is required.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="portlet-body">
+										<div><b>Family</b></div>
+										<div class="well">
+										<table class="table table-bordered table-striped table-condensed flip-content">
+											<thead class="flip-content">
+												<th>Parent ID</th>
+												<th>Parent Name</th>
+												<th>Relation</th>
+												<th>&nbsp;</th>
+											</thead>
+											<tbody>
+												<tr ng-repeat="parent in frm.parents">
+													<td>
+														<input type="text" class="form-control input-inline input-xsmall" placeholder="" ng-model="frm.parent_id" name="parent_id" id="parent_id" />
+													</td>
+													<td>
+														<input type="text" class="form-control input-inline input-xsmall" placeholder="" ng-model="frm.parent_name" name="parent_name" id="parent_name" />
+													</td>
+													<td>
+														<input type="text" class="form-control input-inline input-xsmall" placeholder="" ng-model="frm.parent_relation" name="parent_relation" id="parent_relation" />
+													</td>
+													<td>
+														<a type="button" class="btn btn-xs red" ng-click="frm.parents.splice(i, 1);">Del<i class="fa fa-times"></i></a>
+													</td>
+												</tr>
+												<tr>
+													<td colspan="4"><a class="btn btn-xs green" ng-click="addParents(frm)">Add<i class="fa fa-plus"></i></a></td>
+												</tr>
+											</tbody>
+										</table>													
+										<hr/>
+										<table class="table table-bordered table-striped table-condensed flip-content">
+											<thead class="flip-content">
+												<th>Student ID</th>
+												<th>Student Name</th>
+												<th>Grade</th>
+												<th>Division</th>
+												<th>&nbsp;</th>
+											</thead>
+											<tbody>
+												<tr ng-repeat="sibling in frm.siblings">
+													<td>
+														<input type="text" class="form-control input-inline input-xsmall" placeholder="" ng-model="frm.sibling_id" name="sibling_id" id="sibling_id" />
+													</td>
+													<td>
+														<input type="text" class="form-control input-inline input-xsmall" placeholder="" ng-model="frm.sibling_name" name="sibling_name" id="sibling_name" />
+													</td>
+													<td>
+														<select ng-model="frm.sib_grade" class="form-control input-xsmall input-inline" ng-options="sib_grade.id as sib_grade.name for sib_grade in grades"></select>
+													</td>
+													<td>
+														<select ng-model="frm.sib_division" class="form-control input-xsmall input-inline" ng-options="sib_division.id as sib_division.name for sib_division in divisions"></select>
+													</td>
+													<td>
+														<a type="button" class="btn btn-xs red" ng-click="frm.siblings.splice(i, 1);"> <i class="fa fa-times"></i></a>
+													</td>
+												</tr>
+												<tr>
+													<td colspan="5"><a class="btn btn-xs green" ng-click="addSiblings(frm)">Add<i class="fa fa-plus"></i></a></td>
+												</tr>
+											</tbody>
+										</table>
+										</div>
+									</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</tab>
+					<tab heading="Enrollment">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-sm-12">
+								<div class="scroller" style="height: 300px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+									<div class="clearfix">&nbsp;</div>
+									<div class="portlet-body well">
+										<div class="row">
+											<div class="col-md-5">Start Date:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<!--<input type="text" class="form-control input-inline input-small" placeholder="" ng-model="frm.start_date" name="start_date" required id="start_date" >-->
+													<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" ng-model="start_date" required />
+													<div class="error_msg" ng-messages="frmstudent.start_date.$error" ng-if="frmstudent.$submitted">
+														<p ng-message="required">Start Date is required.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-5">Estimated End Date:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<input id="datepicker" type="text" ng-datepicker ng-options="datepickerOptions" ng-model="estd_end_date" required />
+													<div class="error_msg" ng-messages="frmstudent.estd_end_date.$error" ng-if="frmstudent.$submitted">
+														<p ng-message="required">Estd End Date is required.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-5">Curicullum Selection:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<select ng-model="frm.curicullum" class="form-control input-small input-inline" ng-options="curicullum for curicullum in curicullums">
+														<option value='' disabled selected style='display:none;'>Select Curicullum</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-5">Current Class:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<select ng-model="frm.engrade" class="form-control input-small input-inline" ng-options="engrade.id as engrade.name for engrade in grades">
+														<option value='' disabled selected style='display:none;'>Select Grade</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-5">Current Division:</div>
+											<div class="col-md-7">
+												<div class="form-group">
+													<select ng-model="frm.division" class="form-control input-small input-inline" ng-options="division.id as division.name for division in divisions">
+														<option value='' disabled selected style='display:none;'>Select Division</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="portlet-body">
+										<div><b>Subjects</b></div>
+										<div class="well">
+											<div class="row" ng-repeat="subject in grades[frm.engrade-1].subjects">
+												<div class="col-md-5">{{subject.subject}}</div>
+												<div class="col-md-7">: {{subject.teacher}}</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="portlet-body">
+										<div><b>Transport Details</b></div>
+										<div class="well">
+											<div class="row">
+												<div class="col-md-5">School Transport:</div>
+												<div class="col-md-7">
+													<div class="form-group">
+														<div>
+															<label class="radio-inline">
+															<div class="radio-sp"><input type="radio" value="yes" ng-model="frm.transport" name="yes"></div>
+															Yes </label>
+															<label class="radio-inline">
+															<div class="radio-sp"><input type="radio" value="no" ng-model="frm.transport" name="yes"></div>
+															No </label>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="route_det" ng-show="frm.transport == 'yes'">
+												<div class="row">
+													<div class="col-md-5">Route:</div>
+													<div class="col-md-7">
+														<select ng-model="frm.route" class="form-control input-small input-inline" ng-options="route.id as route.name for route in routes">
+														<option value='' disabled selected style='display:none;'>Select Route</option>
+													</select>
+													</div>
+												</div>
+												<div class="row static-info">
+													<div class="col-md-5">Co-ordinator:</div>
+													<div class="col-md-7">{{routes[frm.route].coordinator}}</div>
+												</div>
+												<div class="row static-info">
+													<div class="col-md-5">Driver:</div>
+													<div class="col-md-7">{{routes[frm.route].driver}}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								</div>
+							</div>
+						</div>
+					</tab>
+					<tab heading="Attendance">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-sm-12">
+									<div class="portlet-body">
+										<div class="well">
+											<!--<div class="row">
+												<div class="col-md-5">Total Working Days:</div>
+												<div class="col-md-7"><b class="badge badge-primary">{{students[checkedIndexs-1].attendance.total}}</b></div>
+											</div>
+											<div class="row">
+												<div class="col-md-5">Days Attended:</div>
+												<div class="col-md-7"><b class="badge badge-success">{{students[checkedIndexs-1].attendance.attended}}</b></div>
+											</div>
+											<div class="row">
+												<div class="col-md-5">Days Absent:</div>
+												<div class="col-md-7"><b class="badge badge-danger">{{students[checkedIndexs-1].attendance.absent}}</b></div>
+											</div>
+											<div class="row">
+												<div class="col-md-5">Excused Leave:</div>
+												<div class="col-md-7"><b class="badge badge-warning">{{students[checkedIndexs-1].attendance.excused}}</b></div>
+											</div>-->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</tab>
+					<tab heading="Medical">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-sm-12">
+									<div class="clearfix">&nbsp;</div>
+									<div class="scroller" style="height: 300px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+									<div class="portlet-body well">
+										<div class="row static-info">
+												<div class="col-md-6">Blood Group</div>
+												<div class="col-md-6">
+													<input type="text" class="form-control input-inline input-small" ng-model="frm.blood_group" name="blood_group" required id="blood_group">
+												</div>
+										</div>
+										<div class="row static-info">
+												<div class="col-md-6">Weight</div>
+												<div class="col-md-6">
+													<input type="text" class="form-control input-inline input-small" ng-model="frm.weight" name="weight" required id="weight">
+												</div>
+										</div>
+										<div class="row static-info">
+												<div class="col-md-6">Height</div>
+												<div class="col-md-6">
+													<input type="text" class="form-control input-inline input-small" ng-model="frm.height" name="height" required id="height">
+												</div>
+										</div>
+										<div class="row static-info">
+											<div class="col-md-6">Physician Name:</div>
+											<div class="col-md-6">
+												<input type="text" class="form-control input-inline" ng-model="frm.phy_name" name="phy_name" required id="phy_name">
+											</div>
+										</div>
+										<div class="row static-info">
+											<div class="col-md-6">Physician Contact Number:</div>
+											<div class="col-md-6">
+												<input type="text" class="form-control input-inline" ng-model="frm.phy_cont_no" name="phy_cont_no" required id="phy_cont_no">
+											</div>
+										</div>
+										<div class="row static-info">
+											<div class="col-md-6">Physician Address:</div>
+											<div class="col-md-6">
+												<input type="text" class="form-control input-inline" ng-model="frm.phy_address" name="phy_address" required id="phy_address">
+											</div>
+										</div>
+									</div>
+									<div class="portlet-body">
+										<div class="well">
+											<div class="row static-info">	
+											<div class="col-md-12">
+												<b>Allergies</b>
+												<div class="form-group">
+													<a class="btn btn-xs red">Pollen<i class="fa fa-times"></i></a>
+													<div>&nbsp;</div>
+													<input type="text" class="form-control input-lg" ng-model="frm.tag" placeholder="Type to add ..."/>
+												</div>
+											</div>
+										</div>
+										</div>
+									</div>
+									
+									<div class="portlet-body">
+										<div class="well">
+											<div class="row static-info">	
+												<div class="col-md-12">
+													<b>Medication History</b>
+													<p><input type="text" class="form-control input_full" ng-model="frm.medication"/></p>
+													<p><input type="text" class="form-control input_full" ng-model="frm.medication"/></p>
+													<p><input type="text" class="form-control input_full" ng-model="frm.medication"/></p>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="portlet-body">
+										<div class="well">
+											<div class="row static-info">	
+												<div class="col-md-12">
+												<b>Conditions</b>
+												<div class="form-group">
+													<a class="btn btn-xs red">Asthma<i class="fa fa-times"></i></a>
+													<div>&nbsp;</div>
+													<input type="text" class="form-control input-lg" ng-model="frm.conditions" placeholder="Type to add ..."/>
+												</div>
+											</div>
+											</div>
+											<div class="row static-info">	
+												<div class="col-md-12">
+												<b>Family History</b>
+												<div class="form-group">
+													<a class="btn btn-xs red">Diabetes<i class="fa fa-times"></i></a>
+													<div>&nbsp;</div>
+													<input type="text" class="form-control input-lg" ng-model="frm.history" placeholder="Type to add ..."/>
+												</div>
+											</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="portlet-body">
+										<div class="well">
+											<div class="row static-info">	
+												<div class="col-md-12">
+													<b>Vaccination Record</b>
+													<table class="table table-bordered table-striped table-condensed flip-content">
+														<thead class="flip-content">
+															<th>Vaccination Name</th>
+															<th>Date Due</th>
+															<th>Date Completed</th>
+															<th>Action</th>
+														</thead>
+														<tbody>
+															<tr ng-repeat="vaccination in frm.vaccinations">
+																<td>
+																	<input type="text" class="form-control input-inline input-small" placeholder="" ng-model="frm.vaccination_name" name="vaccination_name" id="vaccination_name" />
+																</td>
+																<td>
+																	<input type="text" class="form-control input-inline input-xsmall" placeholder="" ng-model="frm.vaccination_due" name="vaccination_due" id="vaccination_due" />
+																</td>
+																<td>
+																	<input type="text" class="form-control input-inline input-xsmall" placeholder="" ng-model="frm.vaccination_completed" name="vaccination_completed" id="vaccination_completed" />
+																</td>
+																<td>
+																	<a type="button" class="btn btn-xs red" ng-click="frm.vaccinations.splice(i, 1);"><i class="fa fa-times"></i></a>
+																</td>
+															</tr>
+															<tr>
+																<td colspan="4"><a class="btn btn-xs green" ng-click="addVaccination(frm)">Add<i class="fa fa-plus"></i></a></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+										</div>
+										</div>
+									</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</tab>
+					<tab heading="Notes">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-sm-12">
+									<div class="clearfix">&nbsp;</div>
+									<div class="portlet-body well">
+											<label>Additional Notes:</label>
+											<textarea rows="1" class="form-control" ng-model="frm.add_notes"></textarea>
+											
+											<label>Attachments:</label>
+											<div class="portlet-body">
+												<div class="form-group" ng-repeat="attachment in frm.attachments" >
+													<div class="col-md-12">
+														<a><i class="fa fa-file-image-o"></i>
+														<input type="text" class="form-control input-inline" placeholder="" ng-model="frm.attachment" name="attachment" id="attachment" />
+														<a class="btn btn-xs red" ng-click="frm.attachments.splice(i, 1);"><i class="fa fa-trash"></i></a>
+													</div>
+												</div>
+												<button type="button" class="btn btn-xs green" ng-click="addAttachments(frm)">Add<i class="fa fa-plus"></i></button>
+											</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</tab>
+				</tabset>
+				<div class="clearfix">&nbsp;</div>
+				<div class="row">
+					<div class="text-center">
+						<button class="btn btn-sm green" href="javascript:;">Save <i class="fa fa-check"></i></button>
+					</div>
+				</div>
+			</div>
+		</form>
+		</div>
+			
+	</div>
+</div>

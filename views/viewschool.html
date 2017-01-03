@@ -1,0 +1,131 @@
+<div class="clearfix" ng-if="checkedIndexs.length < 1">
+<div class="portlet light bordered">
+	<div class="row text-center">
+		<i class="fa fa-building-o"></i>
+		<div>No School Selected</div>
+	</div>
+</div>
+</div>
+<div class="clearfix" ng-if="checkedIndexs.length > 1">
+<div class="portlet light bordered">
+	<h3>You have selected {{checkedIndexs.length}} records.</h3>
+	<button class="btn red btn-block">Delete Selected Records</button>
+</div>
+</div>
+
+<div class="clearfix" ng-if="checkedIndexs.length ==1">
+<div class="portlet light bordered">
+	<div class="row">
+		<div class="col-md-12">
+			<a class="fa fa-angle-left icon-fa-2x" ng-show="emodules" ng-click="emodules=false;"></a>
+			<div style="float:right;">
+				<a ng-hide="emodules" class="btn btn-sm grey-cascade" href="javascript:;">Edit <i class="fa fa-edit"></i></a>
+				<a class="btn btn-sm red" href="javascript:;">Delete <i class="fa fa-times"></i></a>
+			</div>
+		</div>
+		<div class="clearfix">&nbsp;</div>
+		<div class="clearfix">&nbsp;</div>
+		<div class="col-md-12">
+			<div class="portlet-body">
+				<div class="col-md-4">
+					<div class="row">
+						<div class="profile-userpic">
+							<img style="width:100%;" alt="" class="img-responsive" src="assets/admin/layout2/img/no-image.png">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div class="portlet-body">
+						<div class="col-sm-8 static-info">
+							{{schools[checkedIndexs-1].name}}
+						</div>
+						<div class="col-sm-8 static-info">{{schools[checkedIndexs-1].address}}, {{schools[checkedIndexs-1].city}}</div>
+						<div class="col-sm-8 static-info">{{schools[checkedIndexs-1].school_id}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix">&nbsp;</div>
+			<hr/>
+		</div>
+		
+		<div class="clearfix">&nbsp;</div>
+		<div class="overlay_div" ng-hide="emodules">
+			<div class="col-md-12">
+				<div class="portlet-body">
+					<div class="row static-info">
+						<div class="col-md-5">Phone Number:</div>
+						<div class="col-md-7">{{schools[checkedIndexs-1].phone}}</div>
+					</div>
+					<div class="row static-info">
+						<div class="col-md-5">Email Address:</div>
+						<div class="col-md-7">{{schools[checkedIndexs-1].email}}</div>
+					</div>
+					<div class="row static-info">
+						<div class="col-md-5">Capacity:</div>
+						<div class="col-md-7">{{schools[checkedIndexs-1].capacity}}</div>
+					</div>
+					<div class="row static-info">
+						<div class="col-md-5">Grades:</div>
+						<div class="col-md-7">&nbsp;</div>
+					</div>
+				</div>
+				<hr/>
+			</div>
+			<div class="clearfix">&nbsp;</div>
+			<div class="col-md-12">
+				<div class="portlet-body">
+					<div class="row static-info">
+						<div class="col-md-5">Modules:</div>
+						<div class="col-md-7"><a class="btn btn-sm grey-cascade" href="javascript:;" ng-click="emodules=true;">Edit Modules <i class="fa fa-pencil"></i></a></div>
+						<div class="clearfix">&nbsp;</div>
+						<div class="col-md-12">
+							User Management, Parent Management, Student Management
+						</div>	
+					</div>
+					<div class="row static-info">
+						<div class="col-md-12"></div>
+					</div>
+				</div>
+				<hr/>
+			</div>
+			<div class="clearfix">&nbsp;</div>
+			<div class="col-md-12">
+					<div class="row static-info">
+						<div class="col-md-5">Facilities:</div>
+						<div class="col-md-7"></div>
+					</div>
+					<hr/>
+			</div>
+			<div class="clearfix">&nbsp;</div>
+			<div class="col-md-12">
+				<div class="row static-info">
+					<div class="col-md-5">Additional Notes:</div>
+					<div class="col-md-7">&nbsp;</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="overlay_div_show" ng-show="emodules">
+			<div class="col-md-12">
+				<div class="scroller" style="height: 300px; overflow:auto;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+					<div class="static-info" ng-repeat="rule in accessrules">
+						<div class="col-md-10">
+							{{rule.name}}
+						</div>
+						<div class="col-md-2">
+							<input type="checkbox" class="regular-checkbox" ng-model="rule.checked" />
+						</div>
+						<div class="clearfix"></div>
+						<hr/>
+					</div>
+				</div>
+				
+			</div>
+			<div class="col-md-12 text-center">
+				<a class="btn btn-sm green" href="javascript:;">Save Changes <i class="fa fa-check"></i></a>
+			</div>
+		</div>
+	</div>
+		
+	</div>
+</div>

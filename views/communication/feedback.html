@@ -1,0 +1,56 @@
+<div class="row">
+	<div class="col-md-12 no-gutter_pad10">
+		<div class="col-md-7">
+			<div class="col-md-12 headdiv">
+				<div class="col-md-4">From</div>
+				<div class="col-md-4 text-center">Role</div>
+				<div class="col-md-4 text-center">Date & Time</div>
+			</div>
+			<div data-handle-color="#D7DCE2" data-rail-visible1="0" data-always-visible="1" style="height: 400px; overflow:auto;" class="scroller">
+				<div style="padding:12px;">
+				<div class="no-gutter_pad10 postdiv" ng-repeat="feedback in feedbacks">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-4">{{feedback.from_name}}</div>
+							<div class="col-md-4 text-center">{{feedback.role}}</div>
+							<div class="col-md-4 text-center">{{feedback.datetime}}</div>
+						</div>
+						<div class="row portlet-body postmsg">
+							<div class="col-md-12">
+								<i>{{feedback.message}}</i>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5 postdiv">
+			<div class="clearfix">&nbsp;</div>
+			<div class="col-md-12">
+				<div data-handle-color="#D7DCE2" data-rail-visible1="0" data-always-visible="1" style="height: 250px; overflow:auto;" class="scroller">
+					<div class="col-md-9 well pull-left dashboard-stat blue-madison msgwhite">
+						Message Message Message Message Message Message Message Message Message Message
+					</div>
+					<div class="col-md-9 well pull-right">
+						Message Message Message Message Message Message Message Message Message Message
+					</div>
+					<div class="col-md-9 well pull-left dashboard-stat blue-madison msgwhite">
+						Message Message Message Message Message Message Message Message Message Message
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-12">
+				<form class="form-horizontal" valid-submit="addfeedback()" name="frmgrpmsg" novalidate>
+					<div class="form-group" style="padding:5px;">
+						<textarea class="form-control" ng-model="frm.message" placeholder="Your message here"></textarea>
+					</div>
+					<button class="btn btn-sm green pull-right">Send</button>
+				</form>
+			</div>
+			<div class="clearfix">&nbsp;</div>
+		</div>
+	</div>
+</div>
